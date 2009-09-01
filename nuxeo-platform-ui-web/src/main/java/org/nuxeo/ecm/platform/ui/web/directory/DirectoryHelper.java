@@ -133,7 +133,8 @@ public final class DirectoryHelper {
             for (DocumentModel docModel : docModelList) {
                 String id = (String) docModel.getProperty(schema, "id");
                 String label = (String) docModel.getProperty(schema, "label");
-                if (localize) {
+
+                if (Boolean.TRUE.equals(localize)) {
                     label = translate(context, label);
                 }
                 DirectorySelectItem item = new DirectorySelectItem(id, label);
@@ -188,7 +189,7 @@ public final class DirectoryHelper {
             }
             String id = entry.getId();
             String label = entry.getLabel();
-            if (localize) {
+            if (Boolean.TRUE.equals(localize)) {
                 label = translate(context, label);
             }
             DirectorySelectItem item = new DirectorySelectItem(id, label);
