@@ -25,11 +25,15 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.common.utils.i18n.I18NUtils;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -93,12 +97,18 @@ public final class DirectoryHelper {
 
     public List<DirectorySelectItem> getSelectItems(String directoryName,
             Map<String, Serializable> filter) {
+        return getSelectItems(directoryName, filter, false);
+    }
 
+    public List<DirectorySelectItem> getSelectItems(String directoryName,
+            Map<String, Serializable> filter, Boolean localize) {
         List<DirectorySelectItem> list = new LinkedList<DirectorySelectItem>();
 
         Set<String> emptySet = Collections.emptySet();
 
         Map<String, String> orderBy = new LinkedHashMap<String, String>();
+
+        FacesContext context = FacesContext.getCurrentInstance();
 
         // an extended schema also has parent field
         Session session = null;
@@ -124,6 +134,9 @@ public final class DirectoryHelper {
                 String id = (String) docModel.getProperty(schema, "id");
                 String label = (String) docModel.getProperty(schema, "label");
 
+                if (Boolean.TRUE.equals(localize)) {
+                    label = translate(context, label);
+                }
                 DirectorySelectItem item = new DirectorySelectItem(id, label);
                 list.add(item);
             }
@@ -151,10 +164,22 @@ public final class DirectoryHelper {
 
     public static List<DirectorySelectItem> getSelectItems(
             VocabularyEntryList directoryValues, Map<String, Serializable> filter) {
+        return getSelectItems(directoryValues, filter, false);
+    }
+
+    public static List<DirectorySelectItem> getSelectItems(
+            VocabularyEntryList directoryValues, Map<String, Serializable> filter, Boolean localize) {
         List<DirectorySelectItem> list = new ArrayList<DirectorySelectItem>();
 
+        Integer obsoleteInteger = (Integer) filter.get("obsolete");
+        Boolean obsolete = obsoleteInteger != null && 1 == obsoleteInteger;
+        String parentFilter = (String) filter.get("parent");
+
+        FacesContext context = FacesContext.getCurrentInstance();
         for (VocabularyEntry entry : directoryValues.getEntries()) {
-            String parentFilter = (String) filter.get("parent");
+            if (obsolete != null && !obsolete.equals(entry.getObsolete())) {
+                continue;
+            }
             String parent = entry.getParent();
             if (parentFilter == null) {
                 if (parent != null) {
@@ -170,6 +195,9 @@ public final class DirectoryHelper {
             }
             String id = entry.getId();
             String label = entry.getLabel();
+            if (Boolean.TRUE.equals(localize)) {
+                label = translate(context, label);
+            }
             DirectorySelectItem item = new DirectorySelectItem(id, label);
             list.add(item);
         }
@@ -242,6 +270,13 @@ public final class DirectoryHelper {
                     directoryName, entryId), e);
             return null;
         }
+    }
+
+    protected static String translate(FacesContext context, String label) {
+        String bundleName = context.getApplication().getMessageBundle();
+        Locale locale = context.getViewRoot().getLocale();
+        label = I18NUtils.getMessageString(bundleName, label, null, locale);
+        return label;
     }
 
     protected DirectoryService getService() {

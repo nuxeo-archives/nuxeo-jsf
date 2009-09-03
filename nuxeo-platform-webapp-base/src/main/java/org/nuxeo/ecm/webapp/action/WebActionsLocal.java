@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2007 Nuxeo SAS (http://nuxeo.com/) and contributors.
+ * (C) Copyright 2006-2007 Nuxeo SAS (http://nuxeo.com/) and contributors.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser General Public License
@@ -14,33 +14,27 @@
  * Contributors:
  *     Nuxeo - initial API and implementation
  *
- * $Id$
+ * $Id: JOOoConvertPluginImpl.java 18651 2007-05-13 20:28:53Z sfermigier $
  */
 
-package org.nuxeo.ecm.webapp.pagination;
+package org.nuxeo.ecm.webapp.action;
 
-import org.nuxeo.ecm.core.api.ClientException;
+import javax.annotation.security.PermitAll;
+import javax.ejb.Local;
+import javax.ejb.Remove;
 
-/**
- *
- * @author <a href="mailto:glefter@nuxeo.com">George Lefter</a>
- *
- */
+import org.jboss.seam.annotations.Destroy;
+import org.nuxeo.ecm.platform.ui.web.api.WebActions;
+import org.nuxeo.ecm.webapp.base.StatefulBaseLifeCycle;
 
-public interface SortActions {
+@Local
+public interface WebActionsLocal extends WebActions, StatefulBaseLifeCycle {
 
-    /**
-     * @deprecated: useless
-     */
-    @Deprecated
-    void init();
-
-    /**
-     * @deprecated: useless
-     */
-    @Deprecated
+    @Destroy
+    @Remove
+    @PermitAll
     void destroy();
 
-    String repeatSearch() throws ClientException;
+    void initialize();
 
 }
