@@ -25,7 +25,7 @@
 
   var splitter = document.getElementById('splitter_bar');
   splitter.style.width = document.body.clientWidth + "px";
-  splitter.style.height = "600px";
+  splitter.style.height = document.body.clientHeight + "px";
 
   jQuery(".splitter_bar").splitter({
   type: "v",
