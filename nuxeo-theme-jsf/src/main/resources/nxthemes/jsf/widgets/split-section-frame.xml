@@ -1,0 +1,43 @@
+<style type="text/css" media="all">
+  body{
+  visibility: hidden;
+  }
+
+
+  .splitter_bar {
+
+  }
+
+
+  .splitter_bar div {
+  overflow: hidden;
+  }
+
+
+  .vsplitbar {
+  width: 5px;
+  background: #50A6C2 url(/nuxeo/img/vgrabber.gif) no-repeat center;
+  }
+  
+</style>
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+
+  var splitter = document.getElementById('splitter_bar');
+  splitter.style.width = document.body.clientWidth + "px";
+  splitter.style.height = document.body.clientHeight + "px";
+
+  jQuery(".splitter_bar").splitter({
+  type: "v",
+  outline: true,
+  minLeft: 1, sizeLeft: 150, minRight: 100,
+  resizeToWidth: true,
+  cookie: "vsplitter",
+  accessKey: 'I'
+  });
+
+  document.body.style.visibility = "visible";
+
+  });
+</script>
+<div id="splitter_bar" class="splitter_bar">[nxthemes markup]</div>
