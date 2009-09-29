@@ -132,17 +132,14 @@
     <dependency>
       <groupId>org.richfaces.framework</groupId>
       <artifactId>richfaces-api</artifactId>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.richfaces.framework</groupId>
       <artifactId>richfaces-impl</artifactId>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.richfaces.ui</groupId>
       <artifactId>richfaces-ui</artifactId>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
