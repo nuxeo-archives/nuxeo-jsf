@@ -10,9 +10,8 @@
 
 
   .splitter_bar div {
-  overflow: hidden;
-  }
 
+  }
 
   .vsplitbar {
   width: 5px;
@@ -37,7 +36,7 @@
   });
 
   document.body.style.visibility = "visible";
-
+  
   });
 </script>
 <div id="splitter_bar" class="splitter_bar">[nxthemes markup]</div>
