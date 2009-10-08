@@ -34,6 +34,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.common.utils.URIUtils;
+import org.nuxeo.ecm.platform.ui.web.auth.NXAuthConstants;
+import org.nuxeo.ecm.platform.ui.web.auth.NuxeoAuthenticationFilter;
 import org.nuxeo.ecm.platform.ui.web.rest.api.URLPolicyService;
 import org.nuxeo.ecm.platform.ui.web.rest.descriptors.URLPatternDescriptor;
 import org.nuxeo.ecm.platform.ui.web.rest.descriptors.ValueBindingDescriptor;
@@ -93,7 +95,7 @@ public class URLPolicyServiceImpl implements URLPolicyService {
         try {
             return Framework.getService(DocumentViewCodecManager.class);
         } catch (Exception e) {
-            log.error("Could not retrieve the document view service",e);
+            log.error("Could not retrieve the document view service", e);
         }
         return null;
     }
@@ -159,6 +161,8 @@ public class URLPolicyServiceImpl implements URLPolicyService {
 
     public void setDocumentViewInRequest(HttpServletRequest request,
             DocumentView docView) {
+        request.setAttribute(NXAuthConstants.REQUESTED_URL,
+                NuxeoAuthenticationFilter.getRequestedUrl(request));
         request.setAttribute(DOCUMENT_VIEW_REQUEST_KEY, docView);
     }
 
@@ -173,10 +177,10 @@ public class URLPolicyServiceImpl implements URLPolicyService {
                 break;
             }
         }
-//        if (res == null && log.isDebugEnabled()) {
-//            log.debug("Could not get url pattern for request "
-//                    + request.getRequestURL());
-//        }
+        // if (res == null && log.isDebugEnabled()) {
+        // log.debug("Could not get url pattern for request "
+        // + request.getRequestURL());
+        // }
         return res;
     }
 
@@ -189,10 +193,10 @@ public class URLPolicyServiceImpl implements URLPolicyService {
             }
         }
 
-//        if (docView == null && log.isDebugEnabled()) {
-//            log.debug("Could not get document view from request "
-//                    + request.getRequestURL());
-//        }
+        // if (docView == null && log.isDebugEnabled()) {
+        // log.debug("Could not get document view from request "
+        // + request.getRequestURL());
+        // }
         return docView;
     }
 
@@ -244,9 +248,9 @@ public class URLPolicyServiceImpl implements URLPolicyService {
             } catch (IllegalArgumentException e) {
             }
         }
-//        if (res == null && log.isDebugEnabled()) {
-//            log.debug("Could not get url pattern for document view");
-//        }
+        // if (res == null && log.isDebugEnabled()) {
+        // log.debug("Could not get url pattern for document view");
+        // }
         return res;
     }
 
@@ -258,9 +262,9 @@ public class URLPolicyServiceImpl implements URLPolicyService {
                 break;
             }
         }
-//        if (url == null && log.isDebugEnabled()) {
-//            log.debug("Could not get url from document view");
-//        }
+        // if (url == null && log.isDebugEnabled()) {
+        // log.debug("Could not get url from document view");
+        // }
         return url;
     }
 
@@ -393,8 +397,8 @@ public class URLPolicyServiceImpl implements URLPolicyService {
         ELContext context = facesContext.getELContext();
         String actionBinding = pattern.getActionBinding();
         MethodExpression action = ef.createMethodExpression(context,
-                actionBinding, String.class, new Class[]{ DocumentView.class });
-        return (String) action.invoke(context, new Object[]{ docView });
+                actionBinding, String.class, new Class[] { DocumentView.class });
+        return (String) action.invoke(context, new Object[] { docView });
     }
 
     // registries management
