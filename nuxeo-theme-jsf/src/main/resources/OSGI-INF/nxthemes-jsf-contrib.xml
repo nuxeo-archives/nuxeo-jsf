@@ -165,7 +165,7 @@
       <format-type>widget</format-type>
       <resource>jquery.js</resource>
       <resource>jquery.cookie.js</resource>
-      <resource>spliter.js</resource>
+      <resource>splitter.js</resource>
       <template>nxthemes/jsf/widgets/split-section-frame.xml
       </template>
     </view>
