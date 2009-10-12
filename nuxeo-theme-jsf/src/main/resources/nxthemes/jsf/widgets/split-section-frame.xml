@@ -10,7 +10,7 @@
 
 
   .splitter_bar div {
-  overflow: hidden;
+
   }
 
   .vsplitbar {
