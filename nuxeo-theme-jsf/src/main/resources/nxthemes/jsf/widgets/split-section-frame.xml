@@ -29,7 +29,7 @@
   jQuery(".splitter_bar").splitter({
   type: "v",
   outline: true,
-  minLeft: 1, sizeLeft: #{splitPane.value}, minRight: 100,
+  minLeft: 1, sizeLeft: 150, minRight: 100,
   resizeToWidth: true,
   cookie: "vsplitter",
   accessKey: 'I'
