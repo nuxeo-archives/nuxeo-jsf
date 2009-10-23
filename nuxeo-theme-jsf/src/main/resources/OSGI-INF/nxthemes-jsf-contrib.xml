@@ -177,6 +177,61 @@
       <template>nxthemes/jsf/widgets/split-cell-frame.xml
       </template>
     </view>
+
+    <!-- fix for the theme editor -->
+    <view name="split section frame" template-engine="freemarker">
+      <engine>page-editor</engine>
+      <element-type>section</element-type>
+      <format-type>widget</format-type>
+      <template>
+        nxthemes/editor/widgets/fm/section-frame.xml
+      </template>
+    </view>
+
+    <view name="split section frame" template-engine="freemarker,jsf-facelets">
+      <engine>page-editor</engine>
+      <mode>area-styles-section</mode>
+      <element-type>section</element-type>
+      <format-type>widget</format-type>
+      <class>org.nuxeo.theme.editor.views.SectionFrameAreaStyle</class>
+    </view>
+
+    <view name="split section frame" template-engine="freemarker">
+      <engine>page-editor</engine>
+      <mode>area-styles-cell</mode>
+      <element-type>section</element-type>
+      <format-type>widget</format-type>
+      <template>
+        nxthemes/editor/widgets/fm/section-frame.xml
+      </template>
+    </view>
+
+    <view name="split section frame" template-engine="jsf-facelets">
+      <engine>page-editor</engine>
+      <element-type>section</element-type>
+      <format-type>widget</format-type>
+      <template>
+        nxthemes/editor/widgets/jsf/section-frame.xml
+      </template>
+    </view>
+
+    <view name="split cell frame" template-engine="freemarker,jsf-facelets">
+      <engine>page-editor</engine>
+      <element-type>cell</element-type>
+      <format-type>widget</format-type>
+      <class>
+        org.nuxeo.theme.editor.views.CellFrameWidget
+      </class>
+    </view>
+
+    <view name="split cell frame" template-engine="freemarker,jsf-facelets">
+      <engine>page-editor</engine>
+      <mode>area-styles-cell</mode>
+      <element-type>cell</element-type>
+      <format-type>widget</format-type>
+      <class>org.nuxeo.theme.editor.views.CellFrameAreaStyle</class>
+    </view>
+
     <!-- End Split pane stuff -->
 
     <view name="vertical menu" template-engine="jsf-facelets">
