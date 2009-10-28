@@ -1,0 +1,58 @@
+<style type="text/css" media="all" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                                    xmlns:c="http://java.sun.com/jstl/core">
+                                    
+  body{
+  visibility: hidden;
+  }
+
+
+  .splitter_bar {
+    position:relative;
+  }
+  
+  
+<c:set var="browser" value="${header['User-Agent']}" scope="session"/>  
+<c:if test="${fn:contains(browser,'MSIE 7.0')}">
+  .splitter_bar div {
+    overflow: hidden;
+  }
+</c:if>
+  
+<c:if test="${fn:contains(browser,'MSIE 6.0')}">
+  .splitter_bar div {
+  }
+  </c:if>
+  
+<c:if test="${fn:contains(header['User-Agent'],'Gecko')}">
+  .splitter_bar div {
+    overflow: hidden;
+  }
+</c:if>
+
+  .vsplitbar {
+  width: 5px;
+  background: #50A6C2 url(/nuxeo/img/vgrabber.gif) no-repeat center;
+  }  
+</style>
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+
+  var splitter = document.getElementById('splitter_bar');
+  splitter.style.width = (document.body.clientWidth-20) + "px";
+  splitter.style.height = (document.body.clientHeight-150) + "px";
+
+  jQuery(".splitter_bar").splitter({
+  type: "v",
+  outline: true,
+  minLeft: 1, sizeLeft: 150, minRight: 100,
+  resizeToWidth: true,
+  cookie: "vsplitter",
+  accessKey: 'I'
+  });
+
+  document.body.style.visibility = "visible";
+  
+  });
+</script>
+<div id="splitter_bar" class="splitter_bar">[nxthemes markup]</div>
