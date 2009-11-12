@@ -217,6 +217,32 @@ public final class DocumentModelFunctions implements LiveEditConstants {
         return iconPath;
     }
 
+    public static String bigIconPath(DocumentModel document) {
+        String iconPath = "";
+        if (document != null) {
+            TypeInfo typeInfo = document.getAdapter(TypeInfo.class);
+            if (typeInfo != null) {
+                iconPath = typeInfo.getIcon();
+            }
+        }
+        return iconPath;
+    }
+
+    public static String bigIconExpandedPath(DocumentModel document) {
+        String iconPath = "";
+        if (document != null) {
+            TypeInfo typeInfo = document.getAdapter(TypeInfo.class);
+            if (typeInfo != null) {
+                iconPath = typeInfo.getIconExpanded();
+                // Set to default icon if expanded is not set
+                if (iconPath == null || iconPath.equals("")) {
+                    iconPath = bigIconPath(document);
+                }
+            }
+        }
+        return iconPath;
+    }
+
     public static String fileIconPath(Blob blob) {
         String iconPath = "";
         if (blob != null) {
@@ -398,7 +424,7 @@ public final class DocumentModelFunctions implements LiveEditConstants {
 
     public static String fileUrl(String patternName, DocumentModel doc,
             String blobPropertyName, String filename) {
-        if (doc==null) {
+        if (doc == null) {
             return null;
         }
         try {
@@ -422,6 +448,20 @@ public final class DocumentModelFunctions implements LiveEditConstants {
         }
 
         return null;
+    }
+
+    public static String bigFileUrl(DocumentModel doc, String blobPropertyName,
+            String filename) {
+        if (doc == null) {
+            return null;
+        }
+        String bigDownloadURL = BaseURL.getBaseURL();
+        bigDownloadURL += "nxbigfile" + "/";
+        bigDownloadURL += doc.getRepositoryName() + "/";
+        bigDownloadURL += doc.getRef().toString() + "/";
+        bigDownloadURL += blobPropertyName + "/";
+        bigDownloadURL += filename;
+        return bigDownloadURL;
     }
 
     public static String fileDescription(DocumentModel document,
@@ -476,6 +516,7 @@ public final class DocumentModelFunctions implements LiveEditConstants {
 
     /**
      * Get the REST URL for a blob inside a list of complex type. For instance,
+     *
      * <code>http://localhost/nuxeo/nxfile/server/docId/files:files%5B0%5D/file/image.png</code>
      * for the blob property 'file' of the first element inside the
      * 'files:files' list.

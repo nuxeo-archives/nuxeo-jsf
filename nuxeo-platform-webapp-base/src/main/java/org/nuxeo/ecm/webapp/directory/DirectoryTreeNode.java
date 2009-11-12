@@ -26,7 +26,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.core.Events;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -37,6 +36,7 @@ import org.nuxeo.ecm.directory.DirectoryException;
 import org.nuxeo.ecm.directory.Session;
 import org.nuxeo.ecm.directory.api.DirectoryService;
 import org.nuxeo.ecm.platform.ui.web.directory.DirectoryHelper;
+import org.nuxeo.ecm.platform.ui.web.util.SeamContextHelper;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.ecm.webapp.querymodel.QueryModelActions;
 
@@ -58,6 +58,8 @@ public class DirectoryTreeNode {
 
     protected final int level;
 
+    protected boolean open = false;
+    
     protected final DirectoryTreeDescriptor config;
 
     protected String identifier;
@@ -96,27 +98,22 @@ public class DirectoryTreeNode {
         if (config.isMultiselect()) {
             List<Object> values = (List<Object>) queryModel.getProperty(
                     schemaName, fieldName);
-            if (!values.contains(value)) {
+            if (values.contains(value)) {
+                values.remove(value);
+            } else {
                 values.add(value);
-                queryModel.setProperty(schemaName, fieldName, values);
-                Events.instance().raiseEvent(EventNames.QUERY_MODEL_CHANGED,
-                        queryModel);
-                // raise this event in order to reset the documents lists from
-                // 'conversationDocumentsListsManager'
-                Events.instance().raiseEvent(
-                         EventNames.FOLDERISHDOCUMENT_SELECTION_CHANGED,
-                         new DocumentModelImpl("Folder"));
             }
+            queryModel.setProperty(schemaName, fieldName, values);
         } else {
             queryModel.setProperty(schemaName, fieldName, value);
-            Events.instance().raiseEvent(EventNames.QUERY_MODEL_CHANGED,
-                    queryModel);
-            // raise this event in order to reset the documents lists from
-            // 'conversationDocumentsListsManager'
-            Events.instance().raiseEvent(
-                    EventNames.FOLDERISHDOCUMENT_SELECTION_CHANGED,
-                    new DocumentModelImpl("Folder"));
         }
+        Events.instance().raiseEvent(EventNames.QUERY_MODEL_CHANGED,
+                queryModel);
+        // raise this event in order to reset the documents lists from
+        // 'conversationDocumentsListsManager'
+        Events.instance().raiseEvent(
+                 EventNames.FOLDERISHDOCUMENT_SELECTION_CHANGED,
+                 new DocumentModelImpl("Folder"));
         pathProcessing();
         return config.getOutcome();
     }
@@ -144,14 +141,7 @@ public class DirectoryTreeNode {
         String fieldName = config.getFieldName();
         String schemaName = config.getSchemaName();
         if (config.isMultiselect()) {
-            List<Object> values = (List<Object>) queryModel.getProperty(
-                    schemaName, fieldName);
-            for (Object value : values) {
-                if (value instanceof String
-                        && ((String) value).startsWith(path)) {
-                    return true;
-                }
-            }
+            return isOpen();
         } else {
             Object value = queryModel.getProperty(schemaName, fieldName);
             if (value instanceof String) {
@@ -290,10 +280,11 @@ public class DirectoryTreeNode {
     }
 
     protected void lookupQueryModel() throws ClientException {
+        SeamContextHelper seamContextHelper = new SeamContextHelper();
         if (queryModel != null) {
             return;
         }
-        QueryModelActions qma = (QueryModelActions) Contexts.lookupInStatefulContexts("queryModelActions");
+        QueryModelActions qma = (QueryModelActions) seamContextHelper.get("queryModelActions");
         queryModel = qma.get(config.getQuerymodel());
         if (queryModel == null) {
             throw new ClientException("no query model registered as "
@@ -306,7 +297,10 @@ public class DirectoryTreeNode {
     }
 
     public void pathProcessing() throws DirectoryException {
-
+        if (config.isMultiselect()) {
+            // no breadcrumbs management with multiselect
+            return;
+        }
         String aPath = (String) queryModel.getProperty(config.getSchemaName(),
                 config.getFieldName());
         if (aPath != null && aPath != "") {
@@ -345,6 +339,14 @@ public class DirectoryTreeNode {
         } else {
             Events.instance().raiseEvent("PATH_PROCESSED", "");
         }
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 
 }
