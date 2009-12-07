@@ -84,23 +84,14 @@ public class WidgetTagHandler extends MetaTagHandler {
         // build handler
         Widget widgetInstance = (Widget) widget.getObject(ctx, Widget.class);
         if (widgetInstance != null) {
-            // set value name and mode on widget instance in case it's changed
-            // from first computation
+            // set value name on widget instance in case it's changed from first
+            // computation
             String valueName = value.getValue();
-            String modeValue = mode.getValue(ctx);
-            String widgetMode = widgetInstance.getMode();
-            if (modeValue != null && !modeValue.equals(widgetMode)) {
-                widgetInstance.setMode(modeValue);
-            }
             if (ComponentTagUtils.isValueReference(valueName)) {
                 valueName = valueName.substring(2, valueName.length() - 1);
             }
             widgetInstance.setValueName(valueName);
             applyWidgetHandler(ctx, parent, config, widgetInstance, value, true);
-            // set back old mode
-            if (modeValue != null && !modeValue.equals(widgetMode)) {
-                widgetInstance.setMode(widgetMode);
-            }
         }
     }
 
