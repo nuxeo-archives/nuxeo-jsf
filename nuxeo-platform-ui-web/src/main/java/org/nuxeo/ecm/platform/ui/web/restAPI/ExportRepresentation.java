@@ -111,7 +111,8 @@ public abstract class ExportRepresentation extends OutputRepresentation {
             try {
                 loginContext = Framework.login();
             } catch (LoginException e) {
-                throw new IOException(e);
+                log.error(e);
+                throw new IOException();
             }
             try {
                 repository = Framework.getService(RepositoryManager.class).getRepository(
@@ -166,7 +167,8 @@ public abstract class ExportRepresentation extends OutputRepresentation {
                     loginContext.logout();
                 }
             } catch (LoginException e) {
-                throw new IOException(e);
+                log.error(e);
+                throw new IOException();
             }
 
             try {
