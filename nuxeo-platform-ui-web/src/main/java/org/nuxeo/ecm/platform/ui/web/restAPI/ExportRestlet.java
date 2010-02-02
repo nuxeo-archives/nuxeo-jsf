@@ -104,21 +104,24 @@ public class ExportRestlet extends BaseStatelessNuxeoRestlet implements Serializ
                     runner.runUnrestricted();
                     root = runner.root;
                     needUnrestricted = true;
-                }
-            }
-            if (root.isVersion()) {
-                DocumentModelList docs = session.getProxies(root.getRef(), null);
-                Boolean hasReadableProxy = false;
-                for (DocumentModel doc : docs) {
-                    if (session.hasPermission(doc.getRef(), SecurityConstants.READ)) {
-                        hasReadableProxy = true;
-                        break;
+
+                    // if user can't read version, export is authorized
+                    // if he can at least read a proxy pointing to this version
+                    if (root.isVersion()) {
+                        DocumentModelList docs = session.getProxies(root.getRef(), null);
+                        Boolean hasReadableProxy = false;
+                        for (DocumentModel doc : docs) {
+                            if (session.hasPermission(doc.getRef(), SecurityConstants.READ)) {
+                                hasReadableProxy = true;
+                                break;
+                            }
+                        }
+                        if (!hasReadableProxy) {
+                            throw new ClientException(
+                                    "Current user doesn't have access to any proxy pointing to version "
+                                            + root.getPathAsString());
+                        }
                     }
-                }
-                if (!hasReadableProxy) {
-                    throw new ClientException(
-                            "Current user doesn't have access to any proxy pointing to version "
-                                    + root.getPathAsString());
                 }
             }
         } catch (ClientException e) {
