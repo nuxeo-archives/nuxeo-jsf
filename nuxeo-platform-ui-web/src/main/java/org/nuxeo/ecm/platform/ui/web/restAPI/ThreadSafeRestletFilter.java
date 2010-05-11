@@ -69,7 +69,11 @@ public class ThreadSafeRestletFilter extends Filter {
             } finally {
                 if (started) {
                     // commit Tx
-                    TransactionHelper.commitOrRollbackTransaction();
+                    try {
+                        TransactionHelper.commitOrRollbackTransaction();
+                    } catch (Exception e) {
+                        log.error("Transaction has rollbacked", e);
+                    }
                 }
             }
         } else {
