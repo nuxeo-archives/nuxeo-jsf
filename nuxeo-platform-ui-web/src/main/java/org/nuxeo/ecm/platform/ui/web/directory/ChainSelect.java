@@ -28,12 +28,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.el.ELException;
+import javax.el.ValueExpression;
+import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.el.ValueBinding;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -305,9 +307,13 @@ public class ChainSelect extends UIInput {
     }
 
     public Object getProperty(String name) {
-        ValueBinding vb = getValueBinding(name);
-        if (vb != null) {
-            return vb.getValue(FacesContext.getCurrentInstance());
+        ValueExpression ve = getValueExpression(name);
+        if (ve != null) {
+            try {
+                return ve.getValue(getFacesContext().getELContext());
+            } catch (ELException e) {
+                throw new FacesException(e);
+            }
         } else {
             Map<String, Object> attrMap = getAttributes();
             return attrMap.get(name);
@@ -319,9 +325,9 @@ public class ChainSelect extends UIInput {
         return value != null ? value : defaultValue;
     }
 
-    public Boolean getBooleanProperty(String name, Boolean defaultValue) {
+    public Boolean getBooleanProperty(String name, boolean defaultValue) {
         Boolean value = (Boolean) getProperty(name);
-        return value != null ? value : defaultValue;
+        return value != null ? value : Boolean.valueOf(defaultValue);
     }
 
     public Boolean getLocalize() {
@@ -349,7 +355,18 @@ public class ChainSelect extends UIInput {
     }
 
     public String getOnchange() {
-        return onchange;
+        if (onchange != null) {
+            return onchange;
+        }
+        ValueExpression ve = getValueExpression("onchange");
+        if (ve != null) {
+            try {
+                return (String) ve.getValue(getFacesContext().getELContext());
+            } catch (ELException e) {
+                throw new FacesException(e);
+            }
+        }
+        return null;
     }
 
     public void setOnchange(String onchange) {

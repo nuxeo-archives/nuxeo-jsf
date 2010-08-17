@@ -30,6 +30,7 @@ import java.util.Map;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.nuxeo.common.utils.i18n.I18NUtils;
 import org.nuxeo.ecm.core.api.ClientException;
@@ -123,15 +124,14 @@ public final class Functions {
         return StringUtils.join(collection.iterator(), separator);
     }
 
+    public static String htmlEscape (String data) {
+        return  StringEscapeUtils.escapeHtml(data);
+    }
+
     /**
      * Can be used in order to produce something like that
      * "Julien, Alain , Thierry et Marc-Aur?le" where ' , ' and ' et ' is the
      * final one.
-     *
-     * @param collection
-     * @param separator
-     * @param finalSeparator
-     * @return
      */
     public static String joinCollectionWithFinalDelimiter(
             Collection<Object> collection, String separator,

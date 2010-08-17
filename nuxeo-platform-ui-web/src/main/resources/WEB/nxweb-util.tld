@@ -43,11 +43,13 @@
       </li>
       <li> userDisplayName(String, String, String): returns the full name of a user given its id, first name and last name.
       </li>
+      <li> htmlEscape(String): returns html escaped string (can be use to do safe h:outputText in scripts).
+      </li>
       <li> printFileSize(String size): same as printFormatedFileSize( size, "SI", true)
       </li>
-      <li> printFormatedFileSize(String size, String format, bollean isShort) pretty print the size of 
+      <li> printFormatedFileSize(String size, String format, bollean isShort) pretty print the size of
       a file using the format given in its short or long form. The format available are "SI",
-      "IEC" or "JEDEC". See <a href="http://en.wikipedia.org/wiki/Byte">the wikipedia article on Byte</a> 
+      "IEC" or "JEDEC". See <a href="http://en.wikipedia.org/wiki/Byte">the wikipedia article on Byte</a>
       for more information on those format.
       </li>
       <li>printFormattedDuration(Object durationInSeconds, Map<String, String> messages): pretty print raw duration measured
@@ -190,7 +192,7 @@
     <description>
       <![CDATA[
       <p>
-      Facelet tag handler that performs an iteration.      
+      Facelet tag handler that performs an iteration.
       </p>
       <p>
       This handler is different from the standard one because it performs a real
@@ -450,6 +452,24 @@
         text, and will attempt to be translated.
       </description>
     </attribute>
+    <attribute>
+      <name>onchange</name>
+      <description>
+        Javascript onchange event handler, set on the radio buttons
+      </description>
+    </attribute>
+    <attribute>
+      <name>onclick</name>
+      <description>
+        Javascript onclick event handler, set on the radio button
+      </description>
+    </attribute>
+    <attribute>
+      <name>onselect</name>
+      <description>
+        Javascript onselect event handler, set on the radio button
+      </description>
+    </attribute>
     <example>
       <![CDATA[
 <nxu:inputFile value="#{document.file.content"
@@ -694,6 +714,24 @@
       <required>false</required>
       <rtexprvalue>false</rtexprvalue>
       <description>style class to set on the trigger button tag.</description>
+    </attribute>
+    <attribute>
+      <name>onchange</name>
+      <description>
+        Javascript onchange event handler, set on the text input
+      </description>
+    </attribute>
+    <attribute>
+      <name>onclick</name>
+      <description>
+        Javascript onclick event handler, set on the text input
+      </description>
+    </attribute>
+    <attribute>
+      <name>onselect</name>
+      <description>
+        Javascript onselect event handler, set on the text input
+      </description>
     </attribute>
     <example>
       <![CDATA[

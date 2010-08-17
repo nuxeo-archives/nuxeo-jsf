@@ -20,8 +20,6 @@
 
 package org.nuxeo.ecm.webapp.delegate;
 
-import static org.jboss.seam.ScopeType.CONVERSATION;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +44,8 @@ import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.platform.util.RepositoryLocation;
 import org.nuxeo.runtime.api.Framework;
+
+import static org.jboss.seam.ScopeType.CONVERSATION;
 
 /**
  * Acquires a {@link CoreSession} connection.
@@ -114,7 +114,8 @@ public class DocumentManagerBusinessDelegate implements Serializable {
                 session = repository.open();
                 log.debug("Opened session for repository " + serverName);
             } catch (Exception e) {
-                throw new ClientException("Error opening session for repository " + serverName, e);
+                throw new ClientException(
+                        "Error opening session for repository " + serverName, e);
             }
             sessions.put(serverLocation, session);
         }
@@ -132,11 +133,12 @@ public class DocumentManagerBusinessDelegate implements Serializable {
                 log.debug("Closed session for repository " + serverName);
             } catch (EJBAccessException e) {
 
-                log.debug("EJBAccessException while closing session for repository " + serverName);
+                log.debug("EJBAccessException while closing session for repository "
+                        + serverName);
 
                 LoginContext lc = null;
                 try {
-                    lc=Framework.login();
+                    lc = Framework.login();
                     Repository.close(session);
                 } catch (LoginException le) {
                     log.error("Unable to login as System", le);
@@ -150,7 +152,8 @@ public class DocumentManagerBusinessDelegate implements Serializable {
                     }
                 }
             } catch (Exception e) {
-                log.error("Error closing session for repository " + serverName, e);
+                log.error("Error closing session for repository " + serverName,
+                        e);
             }
         }
         sessions.clear();

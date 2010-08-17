@@ -31,6 +31,7 @@ import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.runtime.api.Framework;
+import org.restlet.data.CharacterSet;
 import org.restlet.data.MediaType;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
@@ -47,9 +48,9 @@ public class BrowseRestlet extends BaseStatelessNuxeoRestlet implements
         String repo = (String) req.getAttributes().get("repo");
         String docid = (String) req.getAttributes().get("docid");
 
-        DOMDocumentFactory domfactory = new DOMDocumentFactory();
+        DOMDocumentFactory domFactory = new DOMDocumentFactory();
 
-        DOMDocument result = (DOMDocument) domfactory.createDocument();
+        DOMDocument result = (DOMDocument) domFactory.createDocument();
 
         if (repo == null || repo.equals("*")) {
             try {
@@ -74,15 +75,15 @@ public class BrowseRestlet extends BaseStatelessNuxeoRestlet implements
                 return;
             }
         } else {
-            DocumentModel dm = null;
+            DocumentModel dm;
 
-            Boolean init = initRepository(res, repo);
-            Boolean isRoot=false;
+            boolean init = initRepository(res, repo);
+            boolean isRoot = false;
             try {
                 if (init) {
                     if (docid == null || docid.equals("*")) {
                         dm = session.getRootDocument();
-                        isRoot=true;
+                        isRoot = true;
                     } else {
                         dm = session.getDocument(new IdRef(docid));
                     }
@@ -105,10 +106,9 @@ public class BrowseRestlet extends BaseStatelessNuxeoRestlet implements
             current.setAttribute("id", dm.getId());
             current.setAttribute("name", dm.getName());
             if (isRoot) {
-                current.setAttribute("url",getRelURL(repo, ""));
-            }
-            else {
-                current.setAttribute("url",getRelURL(repo, dm.getRef().toString()));
+                current.setAttribute("url", getRelURL(repo, ""));
+            } else {
+                current.setAttribute("url", getRelURL(repo, dm.getRef().toString()));
             }
             result.setRootElement((org.dom4j.Element) current);
 
@@ -143,8 +143,8 @@ public class BrowseRestlet extends BaseStatelessNuxeoRestlet implements
             }
 
             res.setEntity(result.asXML(), MediaType.TEXT_XML);
+            res.getEntity().setCharacterSet(CharacterSet.UTF_8);
         }
-
     }
 
     private static String getRelURL(String repo, String uuid) {

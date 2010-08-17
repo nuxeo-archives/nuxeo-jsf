@@ -176,7 +176,7 @@ public class GroupManagerActionsBean implements GroupManagerActions {
 
     public boolean isSelectedGroupReadOnly() {
         Serializable virtualFlag = selectedGroup.getContextData().getScopedValue("virtual");
-        return (virtualFlag!=null && virtualFlag.equals(true));
+        return virtualFlag != null && virtualFlag.equals(true);
     }
 
     public DocumentModel getSelectedGroup() {
@@ -298,6 +298,29 @@ public class GroupManagerActionsBean implements GroupManagerActions {
 
     public boolean isSearchOverflow() {
         return searchOverflow;
+    }
+
+    /*
+     * ----- Methods for AJAX calls, do not return anything to avoid redirect -----
+     */
+
+    public void setSelectedGroup(DocumentModel group) throws ClientException {
+        selectedGroup = refreshGroup(group.getId());
+    }
+
+    public void deleteGroupNoRedirect() throws ClientException {
+        deleteGroup();
+        resetGroups();
+    }
+
+    public void createGroupNoRedirect() throws ClientException {
+        createGroup();
+        resetGroups();
+    }
+
+    public void updateGroupNoRedirect() throws ClientException {
+        updateGroup();
+        resetGroups();
     }
 
 }
