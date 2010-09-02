@@ -35,15 +35,16 @@ import com.sun.facelets.util.ParameterCheck;
 
 /**
  * Default FaceletFactory implementation.
- *
+ * 
  * Modified from facelets-1.1.11 by Jean-Marc Orliaguet <jmo@chalmers.se> made
  * the DefaultFaceletFactory class non-final and made the refreshPeriod variable
  * protected - 2007/05/10.
- *
+ * 
  * @author Jacob Hookom
- * @version $Id: DefaultFaceletFactory.java,v 1.8 2006/05/03 04:30:13 jhook Exp $
+ * @version $Id: DefaultFaceletFactory.java,v 1.8 2006/05/03 04:30:13 jhook Exp
+ *          $
  */
-@SuppressWarnings({"ALL"})
+@SuppressWarnings({ "ALL" })
 public class DefaultFaceletFactory extends FaceletFactory {
 
     protected final static Logger log = Logger.getLogger("facelets.factory");
@@ -97,10 +98,11 @@ public class DefaultFaceletFactory extends FaceletFactory {
     /**
      * Resolves a path based on the passed URL. If the path starts with '/',
      * then resolve the path against
-     * {@link javax.faces.context.ExternalContext#getResource(java.lang.String) javax.faces.context.ExternalContext#getResource(java.lang.String)}.
+     * {@link javax.faces.context.ExternalContext#getResource(java.lang.String)
+     * javax.faces.context.ExternalContext#getResource(java.lang.String)}.
      * Otherwise create a new URL via
      * {@link URL#URL(java.net.URL, java.lang.String) URL(URL, String)}.
-     *
+     * 
      * @param source base to resolve from
      * @param path relative path to the source
      * @return resolved URL
@@ -123,7 +125,7 @@ public class DefaultFaceletFactory extends FaceletFactory {
      * Create a Facelet from the passed URL. This method checks if the cached
      * Facelet needs to be refreshed before returning. If so, uses the passed
      * URL to build a new instance;
-     *
+     * 
      * @param url source url
      * @return Facelet instance
      * @throws IOException
@@ -133,7 +135,7 @@ public class DefaultFaceletFactory extends FaceletFactory {
      */
     public Facelet getFacelet(URL url) throws IOException, FaceletException,
             FacesException, ELException {
-        //do not remove this log, it is parsed by the devplugin.
+        // do not remove this log, it is parsed by the devplugin.
         log.fine(url.toString());
         ParameterCheck.notNull("url", url);
         DefaultFacelet f = (DefaultFacelet) this.facelets.get(url);
@@ -146,7 +148,7 @@ public class DefaultFaceletFactory extends FaceletFactory {
 
     /**
      * Template method for determining if the Facelet needs to be refreshed.
-     *
+     * 
      * @param facelet Facelet that could have expired
      * @return true if it needs to be refreshed
      */
@@ -170,7 +172,7 @@ public class DefaultFaceletFactory extends FaceletFactory {
     /**
      * Uses the internal Compiler reference to build a Facelet given the passed
      * URL.
-     *
+     * 
      * @param url source
      * @return a Facelet instance
      * @throws IOException
@@ -201,7 +203,7 @@ public class DefaultFaceletFactory extends FaceletFactory {
 
     /**
      * Compiler this factory uses
-     *
+     * 
      * @return final Compiler instance
      */
     public Compiler getCompiler() {

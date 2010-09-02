@@ -16,8 +16,6 @@ package org.nuxeo.theme.test.jsf.filters;
 
 import java.net.URL;
 
-import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.test.NXRuntimeTestCase;
 import org.nuxeo.theme.Manager;
 import org.nuxeo.theme.elements.PageElement;
 import org.nuxeo.theme.engines.EngineType;
@@ -44,8 +42,10 @@ public class TestFragmentTagFilter extends NXRuntimeTestCase {
     public void setUp() throws Exception {
         super.setUp();
         Manager.initializeProtocols();
-        deployContrib("org.nuxeo.theme.core", "OSGI-INF/nxthemes-core-service.xml");
-        deployContrib("org.nuxeo.theme.core", "OSGI-INF/nxthemes-core-contrib.xml");
+        deployContrib("org.nuxeo.theme.core",
+                "OSGI-INF/nxthemes-core-service.xml");
+        deployContrib("org.nuxeo.theme.core",
+                "OSGI-INF/nxthemes-core-contrib.xml");
 
         // create the elements to render
         page = new PageElement();
@@ -71,7 +71,7 @@ public class TestFragmentTagFilter extends NXRuntimeTestCase {
         filter.process(info, true);
         assertEquals(
                 "<nxthemes:fragment xmlns:nxthemes=\"http://nuxeo.org/nxthemes\" "
-                    + "uid=\"1\" engine=\"engine\" mode=\"mode\" />",
+                        + "uid=\"1\" engine=\"engine\" mode=\"mode\" />",
                 info.getMarkup());
     }
 

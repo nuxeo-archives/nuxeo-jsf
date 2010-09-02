@@ -22,7 +22,6 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.nuxeo.runtime.test.NXRuntimeTestCase;
 import org.nuxeo.theme.Manager;
 import org.nuxeo.theme.elements.Element;
 import org.nuxeo.theme.elements.ElementFactory;

@@ -22,7 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public final class CookieManager {
 
-    public static String getCookie(final String name,  final ExternalContext context) {
+    public static String getCookie(final String name,
+            final ExternalContext context) {
         if (context == null) {
             return null;
         }
@@ -34,7 +35,8 @@ public final class CookieManager {
         return cookie.getValue();
     }
 
-    public static void setCookie(String name, String value, final ExternalContext context) {
+    public static void setCookie(String name, String value,
+            final ExternalContext context) {
         if (context == null) {
             return;
         }
@@ -43,7 +45,7 @@ public final class CookieManager {
         response.addCookie(cookie);
     }
 
-    public static void expireCookie(String name,  final ExternalContext context) {
+    public static void expireCookie(String name, final ExternalContext context) {
         if (context == null) {
             return;
         }
