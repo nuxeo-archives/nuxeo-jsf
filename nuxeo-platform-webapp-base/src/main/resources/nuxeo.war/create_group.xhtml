@@ -25,7 +25,7 @@
         <h:outputText value="#{messages['title.createGroup']}" />
       </h3>
 
-      <h:form id="createGroup" rendered="#{groupManagerActions.allowCreateGroup and notReadOnly}">
+      <h:form id="createGroup" enctype="multipart/form-data" rendered="#{groupManagerActions.allowCreateGroup and notReadOnly}">
         <nxl:layout name="group" mode="create"
           value="#{groupManagerActions.newGroup}" />
         <table class="dataInput">

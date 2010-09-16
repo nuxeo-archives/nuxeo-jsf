@@ -28,7 +28,7 @@
         <h:outputText value="#{messages['title.createUser']}" />
       </h3>
 
-      <h:form id="createUser" rendered="#{userManagerActions.allowCreateUser and notReadOnly}">
+      <h:form id="createUser" enctype="multipart/form-data" rendered="#{userManagerActions.allowCreateUser and notReadOnly}">
         <nxl:layout name="user" mode="create" value="#{userManagerActions.newUser}" />
         <table class="dataInput">
           <tbody>
