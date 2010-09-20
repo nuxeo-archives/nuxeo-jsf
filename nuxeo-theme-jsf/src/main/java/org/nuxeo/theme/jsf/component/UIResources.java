@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletRequest;
 
+import org.nuxeo.ecm.platform.ui.web.util.BaseURL;
 import org.nuxeo.theme.html.Utils;
 import org.nuxeo.theme.html.ui.Resources;
 

@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.servlet.http.HttpServletRequest;
 
+import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.theme.html.Utils;
 import org.nuxeo.theme.html.ui.ThemeStyles;
 import org.nuxeo.theme.themes.ThemeManager;

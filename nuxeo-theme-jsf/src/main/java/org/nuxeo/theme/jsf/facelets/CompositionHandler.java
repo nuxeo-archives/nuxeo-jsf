@@ -31,6 +31,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.ecm.platform.ui.web.util.BaseURL;
 import org.nuxeo.theme.ApplicationType;
 import org.nuxeo.theme.Manager;
 import org.nuxeo.theme.NegotiationDef;
@@ -97,6 +98,7 @@ public final class CompositionHandler extends TagHandler implements
         strategyAttribute = getAttribute("strategy");
     }
 
+    @Override
     public void apply(FaceletContext ctx, UIComponent parent)
             throws IOException, FacesException, ELException {
         final VariableMapper orig = ctx.getVariableMapper();
@@ -163,6 +165,7 @@ public final class CompositionHandler extends TagHandler implements
         }
     }
 
+    @Override
     public boolean apply(FaceletContext ctx, UIComponent parent, String name)
             throws IOException, FacesException, ELException {
         if (name != null) {

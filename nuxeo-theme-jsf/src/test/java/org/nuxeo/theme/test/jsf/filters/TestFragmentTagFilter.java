@@ -16,6 +16,8 @@ package org.nuxeo.theme.test.jsf.filters;
 
 import java.net.URL;
 
+import org.nuxeo.runtime.api.Framework;
+import org.nuxeo.runtime.test.NXRuntimeTestCase;
 import org.nuxeo.theme.Manager;
 import org.nuxeo.theme.elements.PageElement;
 import org.nuxeo.theme.engines.EngineType;
