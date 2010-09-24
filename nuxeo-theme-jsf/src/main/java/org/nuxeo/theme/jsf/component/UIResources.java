@@ -48,9 +48,8 @@ public class UIResources extends UIOutput {
         params.put("path", contextPath);
         params.put("ignoreLocal", (String) attributes.get("ignoreLocal"));
 
-        String basePath =  contextPath + "/site";
+        String basePath = contextPath + "/site";
         params.put("basepath", basePath);
-
 
         Boolean virtualHosting = Utils.isVirtualHosting((HttpServletRequest) externalContext.getRequest());
         writer.write(Resources.render(params, virtualHosting));

@@ -27,10 +27,10 @@ public final class DummyFragment extends AbstractFragment {
     @Override
     public Model getModel() throws ModelException {
         DummyMenu menu = new DummyMenu("Menu", "A menu");
-            menu.addItem(new DummyMenuItem("Menu item 1", "A menu item",
-                    "http://www.some.url.org", true, ""));
-            menu.addItem(new DummyMenuItem("Menu item 2", "A menu item",
-                    "http://www.some.url.org", true, ""));
+        menu.addItem(new DummyMenuItem("Menu item 1", "A menu item",
+                "http://www.some.url.org", true, ""));
+        menu.addItem(new DummyMenuItem("Menu item 2", "A menu item",
+                "http://www.some.url.org", true, ""));
         return menu;
     }
 
