@@ -43,20 +43,20 @@ import com.sun.facelets.el.ELAdaptor;
 
 /**
  * Default FaceletContext implementation.
- *
+ * 
  * Copied from facelets-1.1.11 by Jean-Marc Orliaguet <jmo@chalmers.se> -
  * 2007/05/10.
- *
+ * 
  * A single FaceletContext is used for all Facelets involved in an invocation of
- * {@link com.sun.facelets.Facelet#apply(FacesContext, UIComponent) Facelet#apply(FacesContext, UIComponent)}.
- * This means that included Facelets are treated the same as the JSP include
- * directive.
- *
+ * {@link com.sun.facelets.Facelet#apply(FacesContext, UIComponent)
+ * Facelet#apply(FacesContext, UIComponent)}. This means that included Facelets
+ * are treated the same as the JSP include directive.
+ * 
  * @author Jacob Hookom
  * @version $Id: DefaultFaceletContext.java,v 1.4.4.3 2006/03/25 01:01:53 jhook
  *          Exp $
  */
-@SuppressWarnings({"ALL"})
+@SuppressWarnings({ "ALL" })
 final class DefaultFaceletContext extends FaceletContext {
 
     private final FacesContext faces;
@@ -119,9 +119,10 @@ final class DefaultFaceletContext extends FaceletContext {
 
     /*
      * (non-Javadoc)
-     *
-     * @see com.sun.facelets.FaceletContext#includeFacelet(javax.faces.component.UIComponent,
-     *      java.lang.String)
+     * 
+     * @see
+     * com.sun.facelets.FaceletContext#includeFacelet(javax.faces.component.
+     * UIComponent, java.lang.String)
      */
     @Override
     public void includeFacelet(UIComponent parent, String relativePath)
@@ -175,9 +176,9 @@ final class DefaultFaceletContext extends FaceletContext {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see com.sun.facelets.FaceletContext#setAttribute(java.lang.String,
-     *      java.lang.Object)
+     * java.lang.Object)
      */
     @Override
     public void setAttribute(String name, Object value) {
@@ -195,9 +196,10 @@ final class DefaultFaceletContext extends FaceletContext {
 
     /*
      * (non-Javadoc)
-     *
-     * @see com.sun.facelets.FaceletContext#includeFacelet(javax.faces.component.UIComponent,
-     *      java.net.URL)
+     * 
+     * @see
+     * com.sun.facelets.FaceletContext#includeFacelet(javax.faces.component.
+     * UIComponent, java.net.URL)
      */
     @Override
     public void includeFacelet(UIComponent parent, URL absolutePath)

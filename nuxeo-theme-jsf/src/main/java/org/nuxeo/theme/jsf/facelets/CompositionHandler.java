@@ -98,6 +98,7 @@ public final class CompositionHandler extends TagHandler implements
         strategyAttribute = getAttribute("strategy");
     }
 
+    @Override
     public void apply(FaceletContext ctx, UIComponent parent)
             throws IOException, FacesException, ELException {
         final VariableMapper orig = ctx.getVariableMapper();
@@ -137,12 +138,12 @@ public final class CompositionHandler extends TagHandler implements
                 strategy = strategyAttribute.getValue(ctx);
             }
 
-            String contextPath =  BaseURL.getContextPath()
-                + "/site";
+            String contextPath = BaseURL.getContextPath() + "/site";
             if (strategy == null) {
                 log.error("Could not obtain the negotiation strategy for "
                         + root);
-                external.redirect(contextPath + "/nxthemes/error/negotiationStrategyNotSet.faces");
+                external.redirect(contextPath
+                        + "/nxthemes/error/negotiationStrategyNotSet.faces");
 
             } else {
                 try {
@@ -153,7 +154,8 @@ public final class CompositionHandler extends TagHandler implements
                     ctx.includeFacelet(parent, themeUrl);
                 } catch (NegotiationException e) {
                     log.error("Could not get default negotiation settings.", e);
-                    external.redirect(contextPath + "/nxthemes/error/negotiationDefaultValuesNotSet.faces");
+                    external.redirect(contextPath
+                            + "/nxthemes/error/negotiationDefaultValuesNotSet.faces");
                 }
             }
 
@@ -163,6 +165,7 @@ public final class CompositionHandler extends TagHandler implements
         }
     }
 
+    @Override
     public boolean apply(FaceletContext ctx, UIComponent parent, String name)
             throws IOException, FacesException, ELException {
         if (name != null) {
