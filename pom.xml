@@ -244,6 +244,12 @@
         <version>${nuxeo.runtime.version}</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>org.nuxeo.ecm.core</groupId>
+        <artifactId>nuxeo-core-storage-sql-test</artifactId>
+        <scope>test</scope>
+        <version>${nuxeo.core.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
