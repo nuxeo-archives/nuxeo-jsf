@@ -432,6 +432,28 @@
 
     </widgetType>
 
+    <widgetType name="listing_path">
+
+      <documentation>
+        This widget type displays a document model path
+        <br />
+        It requires the following fields configuration:
+        <ul>
+          <li>
+            first field mapping the document model
+          </li>
+        </ul>
+      </documentation>
+
+      <handler-class>
+        org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
+      </handler-class>
+      <property name="template">
+        /widgets/listing/listing_path_widget_template.xhtml
+      </property>
+
+    </widgetType>
+
   </extension>
 
   <extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
