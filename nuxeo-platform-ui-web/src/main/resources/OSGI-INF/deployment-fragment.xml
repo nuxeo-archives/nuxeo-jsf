@@ -55,12 +55,6 @@
       <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <filter-mapping>
-      <filter-name>NuxeoOAuthFilter</filter-name>
-      <url-pattern>/restAPI/*</url-pattern>
-      <dispatcher>REQUEST</dispatcher>
-      <dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
-    <filter-mapping>
       <filter-name>NuxeoAuthenticationFilter</filter-name>
       <url-pattern>/restAPI/*</url-pattern>
       <dispatcher>REQUEST</dispatcher>
