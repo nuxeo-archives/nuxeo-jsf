@@ -22,26 +22,26 @@ package org.nuxeo.ecm.webapp.clipboard;
 import static org.jboss.seam.ScopeType.EVENT;
 import static org.jboss.seam.ScopeType.SESSION;
 
-import java.io.BufferedInputStream;
+import static org.jboss.seam.ScopeType.EVENT;
+import static org.jboss.seam.ScopeType.SESSION;
+
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
-import java.util.zip.ZipOutputStream;
 
 import javax.ejb.Remove;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
@@ -56,7 +56,6 @@ import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.LocaleSelector;
-import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -65,13 +64,15 @@ import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.LifeCycleConstants;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
-import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
 import org.nuxeo.ecm.core.schema.SchemaManager;
 import org.nuxeo.ecm.platform.actions.Action;
 import org.nuxeo.ecm.platform.types.Type;
 import org.nuxeo.ecm.platform.ui.web.api.WebActions;
+import org.nuxeo.ecm.platform.ui.web.auth.NXAuthConstants;
 import org.nuxeo.ecm.platform.ui.web.cache.SeamCacheHelper;
+import org.nuxeo.ecm.platform.ui.web.util.BaseURL;
+import org.nuxeo.ecm.platform.ui.web.util.ComponentUtils;
 import org.nuxeo.ecm.webapp.base.InputController;
 import org.nuxeo.ecm.webapp.documentsLists.DocumentsListDescriptor;
 import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
@@ -94,12 +95,6 @@ public class ClipboardActionsBean extends InputController implements
     private static final long serialVersionUID = -2407222456116573225L;
 
     private static final Log log = LogFactory.getLog(ClipboardActionsBean.class);
-
-    private static final int BUFFER = 2048;
-
-    private static final String SUMMARY_FILENAME = "INDEX.txt";
-
-    private static final String SUMMARY_HEADER = ".";
 
     private static final String PASTE_OUTCOME = "after_paste";
 
@@ -575,79 +570,6 @@ public class ClipboardActionsBean extends InputController implements
         return exportWorklistAsZip(documents, true);
     }
 
-    public String exportWorklistAsZip(List<DocumentModel> documents,
-            boolean exportAllBlobs) throws ClientException {
-        try {
-            SummaryImpl summary = new SummaryImpl();
-
-            SummaryEntry summaryRoot = new SummaryEntry("", SUMMARY_HEADER,
-                    new Date(), "", "", null);
-            summaryRoot.setDocumentRef(new IdRef("0"));
-            summary.put(new IdRef("0").toString(), summaryRoot);
-
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
-
-            BufferedOutputStream buff = new BufferedOutputStream(
-                    response.getOutputStream());
-            ZipOutputStream out = new ZipOutputStream(buff);
-            out.setMethod(ZipOutputStream.DEFLATED);
-            out.setLevel(9);
-            byte[] data = new byte[BUFFER];
-            for (DocumentModel doc : documents) {
-
-                // first check if DM is attached to the core
-                if (doc.getSessionId() == null) {
-                    // refetch the doc from the core
-                    doc = documentManager.getDocument(doc.getRef());
-                }
-
-                // NXP-2334 : skip deleted docs
-                if (LifeCycleConstants.DELETED_STATE.equals(doc.getCurrentLifeCycleState())) {
-                    continue;
-                }
-
-                BlobHolder bh = doc.getAdapter(BlobHolder.class);
-                if (doc.isFolder() && !isEmptyFolder(doc, documentManager)) {
-
-                    SummaryEntry summaryLeaf = new SummaryEntry(doc);
-                    summaryLeaf.setParent(summaryRoot);
-                    // Quick Fix to avoid adding the logo in summary
-                    if (doc.getType().equals("Workspace")
-                            || doc.getType().equals("WorkspaceRoot")) {
-                        summaryLeaf.setFilename("");
-                    }
-                    summary.put(summaryLeaf.getPath(), summaryLeaf);
-
-                    addFolderToZip("", out, doc, data, documentManager,
-                            summary.get(summaryLeaf.getPath()), summary,
-                            exportAllBlobs);
-                } else if (bh != null) {
-                    addBlobHolderToZip("", out, doc, data,
-                            summary.getSummaryRoot(), summary, bh,
-                            exportAllBlobs);
-                }
-            }
-            if (summary.size() > 1) {
-                addSummaryToZip(out, data, summary);
-            }
-            try {
-                out.close();
-            } catch (ZipException e) {
-                // empty zip file, do nothing
-                setFacesMessage("label.clipboard.emptyDocuments");
-                return null;
-            }
-            response.setHeader("Content-Disposition", "attachment; filename=\"clipboard.zip\";");
-            response.setContentType("application/zip");
-            response.flushBuffer();
-            context.responseComplete();
-            return null;
-        } catch (Throwable t) {
-            throw ClientException.wrap(t);
-        }
-    }
-
     /**
      * Checks if Copy action is available in the context of the current
      * Document.
@@ -811,44 +733,6 @@ public class ClipboardActionsBean extends InputController implements
         return getCanMoveInside(DocumentsListsManager.CLIPBOARD, document);
     }
 
-    // Misc internal function for Ziping Clipboard
-    private void addFolderToZip(String path, ZipOutputStream out,
-            DocumentModel doc, byte[] data, CoreSession documentManager,
-            SummaryEntry parent, SummaryImpl summary, boolean exportAllBlobs)
-            throws ClientException, IOException {
-
-        String title = (String) doc.getProperty("dublincore", "title");
-        List<DocumentModel> docList = documentManager.getChildren(doc.getRef());
-        for (DocumentModel docChild : docList) {
-
-            // NXP-2334 : skip deleted docs
-            if (LifeCycleConstants.DELETED_STATE.equals(docChild.getCurrentLifeCycleState())) {
-                continue;
-            }
-
-            BlobHolder bh = docChild.getAdapter(BlobHolder.class);
-            if (docChild.isFolder()
-                    && !isEmptyFolder(docChild, documentManager)) {
-
-                SummaryEntry summaryLeaf = new SummaryEntry(docChild);
-                if (doc.getType().equals("Workspace")
-                        || doc.getType().equals("WorkspaceRoot")) {
-                    summaryLeaf.setFilename("");
-                }
-                summaryLeaf.setParent(parent);
-                summary.put(summaryLeaf.getPath(), summaryLeaf);
-
-                addFolderToZip(path + title + "/", out, docChild, data,
-                        documentManager, summary.get(summaryLeaf.getPath()),
-                        summary, exportAllBlobs);
-            } else if (bh != null) {
-                addBlobHolderToZip(path + title + "/", out, docChild, data,
-                        summary.get(parent.getPath()), summary, bh,
-                        exportAllBlobs);
-            }
-        }
-    }
-
     private boolean isEmptyFolder(DocumentModel doc, CoreSession documentManager)
             throws ClientException {
 
@@ -861,95 +745,6 @@ public class ClipboardActionsBean extends InputController implements
             }
         }
         return true;
-    }
-
-    /**
-     * Writes a summary file and puts it in the archive.
-     */
-    private void addSummaryToZip(ZipOutputStream out, byte[] data,
-            SummaryImpl summary) throws IOException {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(summary.toString());
-
-        Blob content = new StringBlob(sb.toString());
-
-        BufferedInputStream buffi = new BufferedInputStream(
-                content.getStream(), BUFFER);
-
-        ZipEntry entry = new ZipEntry(SUMMARY_FILENAME);
-        out.putNextEntry(entry);
-        int count = buffi.read(data, 0, BUFFER);
-
-        while (count != -1) {
-            out.write(data, 0, count);
-            count = buffi.read(data, 0, BUFFER);
-        }
-        out.closeEntry();
-        buffi.close();
-    }
-
-    private void addBlobHolderToZip(String path, ZipOutputStream out,
-            DocumentModel doc, byte[] data, SummaryEntry parent,
-            SummaryImpl summary, BlobHolder bh, boolean exportAllBlobs)
-            throws IOException, ClientException {
-        List<Blob> blobs = new ArrayList<Blob>();
-
-        if (exportAllBlobs) {
-            blobs = bh.getBlobs();
-        } else {
-            Blob mainBlob = bh.getBlob();
-            if (mainBlob != null) {
-                blobs.add(mainBlob);
-            }
-        }
-
-        for (Blob content : blobs) {
-            String fileName = content.getFilename();
-
-            SummaryEntry summaryLeaf = new SummaryEntry(doc);
-            summaryLeaf.setParent(parent);
-            summary.put(summaryLeaf.getPath(), summaryLeaf);
-
-            BufferedInputStream buffi = new BufferedInputStream(
-                    content.getStream(), BUFFER);
-
-            // Workaround to deal with duplicate file names.
-            int tryCount = 0;
-            while (true) {
-                try {
-                    ZipEntry entry;
-                    if (tryCount == 0) {
-                        entry = new ZipEntry(path + fileName);
-                    } else {
-                        entry = new ZipEntry(path
-                                + formatFileName(fileName, "(" + tryCount
-                                        + ")"));
-                    }
-                    out.putNextEntry(entry);
-                    break;
-                } catch (ZipException e) {
-                    tryCount++;
-                }
-            }
-
-            int count = buffi.read(data, 0, BUFFER);
-            while (count != -1) {
-                out.write(data, 0, count);
-                count = buffi.read(data, 0, BUFFER);
-            }
-            out.closeEntry();
-            buffi.close();
-        }
-    }
-
-    private String formatFileName(String filename, String count) {
-        StringBuilder sb = new StringBuilder();
-        CharSequence name = filename.subSequence(0, filename.lastIndexOf("."));
-        CharSequence extension = filename.subSequence(
-                filename.lastIndexOf("."), filename.length());
-        sb.append(name).append(count).append(extension);
-        return sb.toString();
     }
 
     public void setCurrentSelectedList(String listId) {
@@ -1100,6 +895,45 @@ public class ClipboardActionsBean extends InputController implements
             return false;
         }
         return documentsListsManager.isWorkingListEmpty(DocumentsListsManager.CURRENT_DOCUMENT_SELECTION);
+    }
+
+       @Override
+    public String exportWorklistAsZip(List<DocumentModel> documents,
+            boolean exportAllBlobs) throws ClientException {
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            DocumentListZipExporter zipExporter = new DocumentListZipExporter();
+            File tmpFile = zipExporter.exportWorklistAsZip(documents,
+                    documentManager, exportAllBlobs);
+            if (tmpFile == null) {
+                // empty zip file, do nothing
+                setFacesMessage("label.clipboard.emptyDocuments");
+                return null;
+            } else {
+                if (tmpFile.length() > ComponentUtils.BIG_FILE_SIZE_LIMIT) {
+                    HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+                    request.setAttribute(
+                            NXAuthConstants.DISABLE_REDIRECT_REQUEST_KEY, true);
+                    String zipDownloadURL = BaseURL.getBaseURL(request);
+                    zipDownloadURL += "nxbigzipfile" + "/";
+                    zipDownloadURL += tmpFile.getName();
+                    try {
+                        context.getExternalContext().redirect(zipDownloadURL);
+                    } catch (IOException e) {
+                        log.error(
+                                "Error while redirecting for big file downloader",
+                                e);
+                    }
+                } else {
+                    ComponentUtils.downloadFile(context, "clipboard.zip",
+                            tmpFile);
+                }
+
+                return "";
+            }
+        } catch (IOException io) {
+            throw ClientException.wrap(io);
+        }
     }
 
 }

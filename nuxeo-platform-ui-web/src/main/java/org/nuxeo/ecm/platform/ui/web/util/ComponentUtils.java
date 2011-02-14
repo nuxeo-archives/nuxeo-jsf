@@ -20,6 +20,7 @@
 
 package org.nuxeo.ecm.platform.ui.web.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +45,7 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.common.utils.RFC2231;
 import org.nuxeo.common.utils.i18n.I18NUtils;
 import org.nuxeo.ecm.core.api.Blob;
+import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.platform.ui.web.component.list.UIEditableList;
 
 /**
@@ -52,6 +54,8 @@ import org.nuxeo.ecm.platform.ui.web.component.list.UIEditableList;
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  */
 public final class ComponentUtils {
+
+    public static final long BIG_FILE_SIZE_LIMIT = 1024 * 1024 * 5;
 
     public static final String WHITE_SPACE_CHARACTER = "&#x0020;";
 
@@ -214,6 +218,13 @@ public final class ComponentUtils {
             }
         }
         return null;
+    }
+
+
+    public static String downloadFile(FacesContext faces,
+            String filename, File file) {
+        FileBlob fileBlob = new FileBlob(file);
+        return download(faces, fileBlob, filename);
     }
 
     /*
