@@ -34,6 +34,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.common.utils.URIUtils;
+import org.nuxeo.ecm.platform.ui.web.auth.NXAuthConstants;
+import org.nuxeo.ecm.platform.ui.web.auth.NuxeoAuthenticationFilter;
 import org.nuxeo.ecm.platform.ui.web.rest.api.URLPolicyService;
 import org.nuxeo.ecm.platform.ui.web.rest.descriptors.URLPatternDescriptor;
 import org.nuxeo.ecm.platform.ui.web.rest.descriptors.ValueBindingDescriptor;
@@ -159,6 +161,11 @@ public class URLPolicyServiceImpl implements URLPolicyService {
 
     public void setDocumentViewInRequest(HttpServletRequest request,
             DocumentView docView) {
+        String requestedUrl = request.getParameter(NXAuthConstants.REQUESTED_URL);
+        if (requestedUrl == null || requestedUrl.equals("")) {
+            requestedUrl = NuxeoAuthenticationFilter.getRequestedUrl(request);
+        }
+        request.setAttribute(NXAuthConstants.REQUESTED_URL, requestedUrl); 
         request.setAttribute(DOCUMENT_VIEW_REQUEST_KEY, docView);
     }
 
