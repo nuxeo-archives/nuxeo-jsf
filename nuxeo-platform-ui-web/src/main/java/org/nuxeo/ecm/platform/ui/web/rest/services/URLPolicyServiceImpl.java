@@ -205,7 +205,9 @@ public class URLPolicyServiceImpl implements URLPolicyService {
             HttpServletRequest request) {
         Object value = request.getAttribute(DOCUMENT_VIEW_REQUEST_KEY);
         if (value instanceof DocumentView) {
+            log.warn("Found DocumentView in cache for url=" + request.getRequestURL().toString() + " and pattern " + patternName);
             DocumentView requestDocView = (DocumentView) value;
+            log.warn("ViewId associated to DocumentView = " + requestDocView.getViewId());
             // check if document view in request was set thanks to this pattern
             if (patternName.equals(requestDocView.getPatternName())) {
                 return requestDocView;
