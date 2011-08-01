@@ -30,6 +30,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.ClientRuntimeException;
 import org.nuxeo.ecm.platform.ui.web.rest.api.URLPolicyService;
 import org.nuxeo.ecm.platform.web.common.exceptionhandling.NuxeoExceptionHandler;
@@ -49,6 +51,8 @@ public class RestfulPhaseListener implements PhaseListener {
 
     protected URLPolicyService service;
 
+    protected static final Log log = LogFactory.getLog(RestfulPhaseListener.class);
+
     protected URLPolicyService getURLPolicyService() throws Exception {
         if (service == null) {
             service = Framework.getService(URLPolicyService.class);
@@ -61,6 +65,7 @@ public class RestfulPhaseListener implements PhaseListener {
     }
 
     public void beforePhase(PhaseEvent event) {
+        log.info("Enter RetfulPhaseListener");
         FacesContext context = event.getFacesContext();
         HttpServletRequest httpRequest = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
@@ -71,11 +76,14 @@ public class RestfulPhaseListener implements PhaseListener {
                 throw new ClientRuntimeException(e);
             }
             if (service.isCandidateForDecoding(httpRequest)) {
+                log.info("Decode Nuxeo Rest URL");
                 // restore state
                 service.navigate(context);
                 // apply requests parameters after - they may need the state
                 // to be restored first.
                 service.applyRequestParameters(context);
+            } else {
+                log.info("Not a Nuxeo Rest URL, let the rendering go on");
             }
         } catch (Exception e) {
             handleException(context, e);

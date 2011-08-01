@@ -118,6 +118,7 @@ public class URLPolicyServiceImpl implements URLPolicyService {
         // look for appropriate pattern and see if it needs filter preprocessing
         URLPatternDescriptor desc = getURLPatternDescriptor(httpRequest);
         if (desc != null) {
+            log.info("Pattern descriptor found for request");
             return desc.getNeedFilterPreprocessing();
         }
         // return default pattern descriptor behaviour
@@ -205,6 +206,7 @@ public class URLPolicyServiceImpl implements URLPolicyService {
             HttpServletRequest request) {
         Object value = request.getAttribute(DOCUMENT_VIEW_REQUEST_KEY);
         if (value instanceof DocumentView) {
+            log.info("Found DocumentView in cache");
             DocumentView requestDocView = (DocumentView) value;
             // check if document view in request was set thanks to this pattern
             if (patternName.equals(requestDocView.getPatternName())) {
