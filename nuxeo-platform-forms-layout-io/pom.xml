@@ -41,11 +41,6 @@
       <artifactId>jsf-api</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.sun.facelets</groupId>
-      <artifactId>jsf-facelets</artifactId>
-      <scope>test</scope>
-    </dependency>
 
   </dependencies>
 
