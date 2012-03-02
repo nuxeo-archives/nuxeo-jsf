@@ -24,10 +24,10 @@ import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.application.NavigationHandler;
 import javax.faces.application.StateManager;
 import javax.faces.application.ViewHandler;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -166,7 +166,7 @@ public abstract class MockFacesContext extends FacesContext {
         }
 
         @Override
-        public Iterator<Class> getConverterTypes() {
+        public Iterator<Class<?>> getConverterTypes() {
             return null;
         }
 

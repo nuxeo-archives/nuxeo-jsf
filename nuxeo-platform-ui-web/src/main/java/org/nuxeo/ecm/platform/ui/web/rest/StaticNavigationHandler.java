@@ -20,15 +20,16 @@
 package org.nuxeo.ecm.platform.ui.web.rest;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 
+import javax.faces.application.NavigationCase;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.sun.faces.application.ApplicationAssociate;
-import com.sun.faces.application.ConfigNavigationCase;
 
 /**
  * View id helper that matches view ids and outcomes thanks to navigation cases
@@ -38,34 +39,31 @@ public class StaticNavigationHandler {
 
     private static final Log log = LogFactory.getLog(StaticNavigationHandler.class);
 
-    private final HashMap<String, String> outcomeToViewId =
-    		new HashMap<String, String>();
+    private final HashMap<String, String> outcomeToViewId = new HashMap<String, String>();
 
-    private final HashMap<String, String> viewIdToOutcome =
-    		new HashMap<String, String>();
+    private final HashMap<String, String> viewIdToOutcome = new HashMap<String, String>();
 
-	public StaticNavigationHandler(ServletContext context) {
-		ApplicationAssociate associate = ApplicationAssociate
-				.getCurrentInstance();
-		for (List<ConfigNavigationCase> cases : associate
-				.getNavigationCaseListMappings().values()) {
-			for (ConfigNavigationCase cnc : cases) {
-				String toViewId = cnc.getToViewId();
-				String fromOutcome = cnc.getFromOutcome();
-				outcomeToViewId.put(fromOutcome, toViewId);
-				viewIdToOutcome.put(toViewId, fromOutcome);
-			}
-		}
-	}
+    public StaticNavigationHandler(ServletContext context) {
+        ApplicationAssociate associate = ApplicationAssociate.getCurrentInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        for (Set<NavigationCase> cases : associate.getNavigationCaseListMappings().values()) {
+            for (NavigationCase cnc : cases) {
+                String toViewId = cnc.getToViewId(facesContext);
+                String fromOutcome = cnc.getFromOutcome();
+                outcomeToViewId.put(fromOutcome, toViewId);
+                viewIdToOutcome.put(toViewId, fromOutcome);
+            }
+        }
+    }
 
     public String getOutcomeFromViewId(String viewId) {
         if (viewId == null) {
             return null;
         }
-		viewId = viewId.replace(".faces", ".xhtml");
-		if (viewIdToOutcome.containsKey(viewId)) {
-			return viewIdToOutcome.get(viewId);
-		}
+        viewId = viewId.replace(".faces", ".xhtml");
+        if (viewIdToOutcome.containsKey(viewId)) {
+            return viewIdToOutcome.get(viewId);
+        }
         return viewId;
     }
 
@@ -73,9 +71,9 @@ public class StaticNavigationHandler {
         if (outcome == null) {
             return null;
         }
-		if (outcomeToViewId.containsKey(outcome)) {
-			return outcomeToViewId.get(outcome).replace(".xhtml", ".faces");
-		}
+        if (outcomeToViewId.containsKey(outcome)) {
+            return outcomeToViewId.get(outcome).replace(".xhtml", ".faces");
+        }
         return "/" + outcome + ".faces";
     }
 

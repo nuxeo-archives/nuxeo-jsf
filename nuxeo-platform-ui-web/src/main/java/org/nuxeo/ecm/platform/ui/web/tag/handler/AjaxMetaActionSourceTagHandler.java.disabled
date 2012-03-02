@@ -19,7 +19,6 @@ package org.nuxeo.ecm.platform.ui.web.tag.handler;
 
 import javax.faces.component.ActionSource;
 
-import org.ajax4jsf.webapp.taglib.AjaxComponentHandler;
 import org.nuxeo.ecm.platform.ui.web.tag.jsf.MetaActionSourceRule;
 
 import com.sun.facelets.tag.MetaRuleset;

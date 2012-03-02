@@ -124,19 +124,30 @@
       <groupId>javax.faces</groupId>
       <artifactId>jsf-impl</artifactId>
     </dependency>
-    <dependency>
+    <!--
+      <dependency>
       <groupId>org.richfaces.framework</groupId>
       <artifactId>richfaces-api</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.richfaces.framework</groupId>
       <artifactId>richfaces-impl</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.richfaces.ui</groupId>
       <artifactId>richfaces-ui</artifactId>
       <scope>provided</scope>
+      </dependency>
+    -->
+    <dependency>
+      <groupId>org.richfaces.ui</groupId>
+      <artifactId>richfaces-components-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.richfaces.ui</groupId>
+      <artifactId>richfaces-components-ui</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>

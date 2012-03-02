@@ -18,7 +18,7 @@ package org.nuxeo.ecm.platform.ui.web.tag.handler;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.richfaces.component.html.HtmlCalendar;
+import org.richfaces.component.UICalendar;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.MetaRuleset;
@@ -70,12 +70,12 @@ public class InputDateTimeTagHandler extends GenericHtmlComponentHandler {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            if (!(instance instanceof HtmlCalendar)) {
+            if (!(instance instanceof UICalendar)) {
                 log.error("Cannot apply date time component metadata, "
                         + "not a HtmlCalendar instance: " + instance);
                 return;
             }
-            HtmlCalendar c = (HtmlCalendar) instance;
+            UICalendar c = (UICalendar) instance;
             c.setPopup(true);
             c.setEnableManualInput(true);
             c.setShowApplyButton(false);

@@ -171,7 +171,7 @@ public class UICellExcel extends org.jboss.seam.excel.ui.UICell {
         WebConfiguration.DisableUnicodeEscaping escaping = WebConfiguration.DisableUnicodeEscaping.True;
         ResponseWriter newResponseWriter = new HtmlResponseWriter(
                 cacheingWriter, contentType, characterEncoding, scriptHiding,
-                scriptInAttributes, escaping);
+                scriptInAttributes, escaping, false);
         // ResponseWriter newResponseWriter = renderKit.createResponseWriter(
         // cacheingWriter, contentType, characterEncoding);
 
