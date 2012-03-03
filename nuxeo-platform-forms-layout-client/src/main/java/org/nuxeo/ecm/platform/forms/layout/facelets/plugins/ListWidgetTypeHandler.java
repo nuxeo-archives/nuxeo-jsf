@@ -19,10 +19,10 @@
 
 package org.nuxeo.ecm.platform.forms.layout.facelets.plugins;
 
+import javax.faces.view.facelets.TagAttribute;
+
 import org.nuxeo.ecm.platform.forms.layout.api.Widget;
 import org.nuxeo.ecm.platform.forms.layout.facelets.FaceletHandlerHelper;
-
-import com.sun.facelets.tag.TagAttribute;
 
 /**
  * List widget type, using a fixed template.

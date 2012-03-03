@@ -8,14 +8,10 @@
     <version>5.6-cdi-SNAPSHOT</version>
   </parent>
 
-  <artifactId>nuxeo-platform-ui-web</artifactId>
-  <name>Nuxeo Web Framework</name>
+  <artifactId>nuxeo-platform-ui-jsf</artifactId>
+  <name>Nuxeo JSF Framework</name>
   <description>
-    Nuxeo Enterprise Platform: Web Framework, based on JBoss SEAM, to build web
-    applications on top of Nuxeo EP. It includes JSF components for Nuxeo EP /
-    Nuxeo Core, custom JSF converters and resolvers, REST URL support, REST API,
-    authentication management (Basic + Form), BLOB download via REST URL, error
-    interceptors, batching management, path handling, etc.
+    Fork of nuxeo-platform-ui-web to keep only JSF dependencies.
   </description>
 
   <dependencies>
@@ -39,10 +35,8 @@
       <groupId>org.nuxeo.ecm.core</groupId>
       <artifactId>nuxeo-core-schema</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.nuxeo.ecm.platform</groupId>
-      <artifactId>nuxeo-platform-web-common</artifactId>
-    </dependency>
+
+    
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-ui-api</artifactId>
@@ -89,34 +83,6 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.ejb</groupId>
-      <artifactId>ejb-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam-remoting</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam-ui</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam-pdf</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam-rss</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>jboss-seam-excel</artifactId>
-    </dependency>
-    <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>jsf-api</artifactId>
     </dependency>
@@ -146,30 +112,6 @@
       <artifactId>dom4j</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>org.restlet</groupId>
-      <artifactId>org.restlet</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.restlet</groupId>
-      <artifactId>org.restlet.ext.fileupload</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.noelios.restlet</groupId>
-      <artifactId>com.noelios.restlet</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.noelios.restlet</groupId>
-      <artifactId>com.noelios.restlet.ext.servlet</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.transaction</groupId>
-      <artifactId>jta</artifactId>
-    </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>

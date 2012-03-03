@@ -27,20 +27,19 @@ import java.util.List;
 import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.CompositeFaceletHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletHandler;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagAttributes;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagHandler;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.forms.layout.api.BuiltinModes;
 import org.nuxeo.ecm.platform.types.adapter.TypeInfo;
-
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletHandler;
-import com.sun.facelets.tag.CompositeFaceletHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagAttributes;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagHandler;
 
 /**
  * Document layout tag handler.

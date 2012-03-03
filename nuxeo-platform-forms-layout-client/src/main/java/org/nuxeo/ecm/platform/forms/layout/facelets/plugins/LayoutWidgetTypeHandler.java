@@ -19,6 +19,12 @@ package org.nuxeo.ecm.platform.forms.layout.facelets.plugins;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletHandler;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagAttributes;
+import javax.faces.view.facelets.TagConfig;
+
 import org.apache.commons.lang.StringUtils;
 import org.nuxeo.ecm.platform.forms.layout.api.BuiltinWidgetModes;
 import org.nuxeo.ecm.platform.forms.layout.api.FieldDefinition;
@@ -29,13 +35,8 @@ import org.nuxeo.ecm.platform.forms.layout.facelets.LayoutTagHandler;
 import org.nuxeo.ecm.platform.forms.layout.facelets.LeafFaceletHandler;
 import org.nuxeo.ecm.platform.forms.layout.facelets.TagConfigFactory;
 import org.nuxeo.ecm.platform.forms.layout.facelets.ValueExpressionHelper;
-import org.nuxeo.ecm.platform.ui.web.component.seam.UIHtmlText;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagAttributes;
-import com.sun.facelets.tag.TagConfig;
+import com.sun.faces.facelets.tag.TagAttributesImpl;
 
 /**
  * Widget rendering a layout
@@ -94,7 +95,7 @@ public class LayoutWidgetTypeHandler extends AbstractWidgetTypeHandler {
         if (BuiltinWidgetModes.PDF.equals(widgetMode)) {
             // add a surrounding p:html tag handler
             return helper.getHtmlComponentHandler(widgetTagConfigId,
-                    new TagAttributes(new TagAttribute[0]), res,
+                    new TagAttributesImpl(new TagAttribute[0]), res,
                     UIHtmlText.class.getName(), null);
         } else {
             return res;

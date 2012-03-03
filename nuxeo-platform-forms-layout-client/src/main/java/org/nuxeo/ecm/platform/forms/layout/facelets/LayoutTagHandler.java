@@ -33,6 +33,14 @@ import javax.el.ValueExpression;
 import javax.el.VariableMapper;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.CompositeFaceletHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletHandler;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagException;
+import javax.faces.view.facelets.TagHandler;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,20 +48,11 @@ import org.nuxeo.ecm.platform.forms.layout.api.Layout;
 import org.nuxeo.ecm.platform.forms.layout.api.LayoutDefinition;
 import org.nuxeo.ecm.platform.forms.layout.api.exceptions.WidgetException;
 import org.nuxeo.ecm.platform.forms.layout.service.WebLayoutManager;
-import org.nuxeo.ecm.platform.ui.web.util.ComponentTagUtils;
 import org.nuxeo.runtime.api.Framework;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletHandler;
-import com.sun.facelets.el.VariableMapperWrapper;
-import com.sun.facelets.tag.CompositeFaceletHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagException;
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.ui.IncludeHandler;
-import com.sun.facelets.tag.ui.ParamHandler;
+import com.sun.faces.facelets.el.VariableMapperWrapper;
+import com.sun.faces.facelets.tag.ui.IncludeHandler;
+import com.sun.faces.facelets.tag.ui.ParamHandler;
 
 /**
  * Layout tag handler.

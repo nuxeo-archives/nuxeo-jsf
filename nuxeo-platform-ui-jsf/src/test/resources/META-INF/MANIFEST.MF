@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Nuxeo Platform JSF Test
+Bundle-SymbolicName: org.nuxeo.ecm.platform.ui.jsf.test

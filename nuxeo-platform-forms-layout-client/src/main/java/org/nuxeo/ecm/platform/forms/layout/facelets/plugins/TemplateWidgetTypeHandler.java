@@ -24,6 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.view.facelets.CompositeFaceletHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletHandler;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagAttributes;
+import javax.faces.view.facelets.TagConfig;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.platform.forms.layout.api.FieldDefinition;
@@ -35,14 +42,8 @@ import org.nuxeo.ecm.platform.forms.layout.facelets.RenderVariables;
 import org.nuxeo.ecm.platform.forms.layout.facelets.TagConfigFactory;
 import org.nuxeo.ecm.platform.forms.layout.facelets.ValueExpressionHelper;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletHandler;
-import com.sun.facelets.tag.CompositeFaceletHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagAttributes;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.ui.DecorateHandler;
-import com.sun.facelets.tag.ui.ParamHandler;
+import com.sun.faces.facelets.tag.ui.DecorateHandler;
+import com.sun.faces.facelets.tag.ui.ParamHandler;
 
 /**
  * Template widget type.

@@ -27,16 +27,15 @@ import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletHandler;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagHandler;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.platform.forms.layout.api.Widget;
-
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagHandler;
 
 /**
  * SubWidget tag handler.

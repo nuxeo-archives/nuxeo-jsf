@@ -32,6 +32,17 @@ import javax.faces.component.html.HtmlMessage;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.convert.Converter;
 import javax.faces.validator.Validator;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.ConverterConfig;
+import javax.faces.view.facelets.ConverterHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletHandler;
+import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.TagAttributes;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.ValidatorConfig;
+import javax.faces.view.facelets.ValidatorHandler;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,21 +50,10 @@ import org.nuxeo.ecm.platform.forms.layout.api.FieldDefinition;
 import org.nuxeo.ecm.platform.forms.layout.api.Widget;
 import org.nuxeo.ecm.platform.forms.layout.api.WidgetSelectOption;
 import org.nuxeo.ecm.platform.forms.layout.api.WidgetSelectOptions;
-import org.nuxeo.ecm.platform.ui.web.binding.alias.AliasTagHandler;
-import org.nuxeo.ecm.platform.ui.web.util.ComponentTagUtils;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagAttributes;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.jsf.ConvertHandler;
-import com.sun.facelets.tag.jsf.ConverterConfig;
-import com.sun.facelets.tag.jsf.ValidateHandler;
-import com.sun.facelets.tag.jsf.ValidatorConfig;
-import com.sun.facelets.tag.jsf.html.HtmlComponentHandler;
+import com.sun.faces.facelets.tag.TagAttributeImpl;
+import com.sun.faces.facelets.tag.TagAttributesImpl;
+import com.sun.faces.facelets.tag.jsf.html.HtmlComponentHandler;
 
 /**
  * Helpers for layout/widget handlers.
@@ -172,7 +172,7 @@ public final class FaceletHandlerHelper {
      */
     public TagAttribute createIdAttribute(String base) {
         String value = generateUniqueId(base);
-        return new TagAttribute(tagConfig.getTag().getLocation(), "", "id",
+        return new TagAttributeImpl(tagConfig.getTag().getLocation(), "", "id",
                 "id", value);
     }
 
@@ -183,8 +183,8 @@ public final class FaceletHandlerHelper {
      */
     public TagAttribute createAttribute(String name, String value) {
         if (value == null || value instanceof String) {
-            return new TagAttribute(tagConfig.getTag().getLocation(), "", name,
-                    name, value);
+            return new TagAttributeImpl(tagConfig.getTag().getLocation(), "",
+                    name, name, value);
         }
         return null;
     }
@@ -224,9 +224,9 @@ public final class FaceletHandlerHelper {
 
     public static TagAttributes getTagAttributes(TagAttribute... attributes) {
         if (attributes == null || attributes.length == 0) {
-            return new TagAttributes(new TagAttribute[0]);
+            return new TagAttributesImpl(new TagAttribute[0]);
         }
-        return new TagAttributes(attributes);
+        return new TagAttributesImpl(attributes);
     }
 
     public static TagAttributes getTagAttributes(List<TagAttribute> attributes) {
@@ -236,7 +236,7 @@ public final class FaceletHandlerHelper {
     public static TagAttributes addTagAttribute(TagAttributes orig,
             TagAttribute newAttr) {
         if (orig == null) {
-            return new TagAttributes(new TagAttribute[] { newAttr });
+            return new TagAttributesImpl(new TagAttribute[] { newAttr });
         }
         List<TagAttribute> allAttrs = new ArrayList<TagAttribute>(
                 Arrays.asList(orig.getAll()));
@@ -262,7 +262,7 @@ public final class FaceletHandlerHelper {
             }
         }
         TagAttribute[] attrs = list.toArray(new TagAttribute[list.size()]);
-        return new TagAttributes(attrs);
+        return new TagAttributesImpl(attrs);
     }
 
     /**
@@ -466,7 +466,7 @@ public final class FaceletHandlerHelper {
      *             instead.
      */
     @Deprecated
-    public ConvertHandler getConvertHandler(TagAttributes attributes,
+    public ConverterHandler getConvertHandler(TagAttributes attributes,
             FaceletHandler nextHandler, String converterId) {
         return getConvertHandler(null, attributes, nextHandler, converterId);
     }
@@ -477,12 +477,12 @@ public final class FaceletHandlerHelper {
      * Next handler cannot be null, use {@link LeafFaceletHandler} if no next
      * handler is needed.
      */
-    public ConvertHandler getConvertHandler(String tagConfigId,
+    public ConverterHandler getConvertHandler(String tagConfigId,
             TagAttributes attributes, FaceletHandler nextHandler,
             String converterId) {
         ConverterConfig config = TagConfigFactory.createConverterConfig(
                 tagConfig, tagConfigId, attributes, nextHandler, converterId);
-        return new ConvertHandler(config);
+        return new ConverterHandler(config);
     }
 
     /**
@@ -491,7 +491,7 @@ public final class FaceletHandlerHelper {
      *             instead.
      */
     @Deprecated
-    public ValidateHandler getValidateHandler(TagAttributes attributes,
+    public ValidatorHandler getValidateHandler(TagAttributes attributes,
             FaceletHandler nextHandler, String validatorId) {
         return getValidateHandler(null, attributes, nextHandler, validatorId);
     }
@@ -502,12 +502,12 @@ public final class FaceletHandlerHelper {
      * Next handler cannot be null, use {@link LeafFaceletHandler} if no next
      * handler is needed.
      */
-    public ValidateHandler getValidateHandler(String tagConfigId,
+    public ValidatorHandler getValidateHandler(String tagConfigId,
             TagAttributes attributes, FaceletHandler nextHandler,
             String validatorId) {
         ValidatorConfig config = TagConfigFactory.createValidatorConfig(
                 tagConfig, tagConfigId, attributes, nextHandler, validatorId);
-        return new ValidateHandler(config);
+        return new ValidatorHandler(config);
     }
 
     /**
