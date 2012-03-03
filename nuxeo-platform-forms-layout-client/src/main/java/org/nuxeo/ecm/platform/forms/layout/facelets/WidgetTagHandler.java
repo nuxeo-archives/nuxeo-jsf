@@ -31,6 +31,7 @@ import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.FaceletHandler;
+import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.MetaTagHandler;
 import javax.faces.view.facelets.TagAttribute;
 import javax.faces.view.facelets.TagConfig;
@@ -39,6 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.platform.forms.layout.api.Widget;
 import org.nuxeo.ecm.platform.forms.layout.service.WebLayoutManager;
+import org.nuxeo.ecm.platform.ui.web.util.ComponentTagUtils;
 import org.nuxeo.runtime.api.Framework;
 
 /**
@@ -169,4 +171,10 @@ public class WidgetTagHandler extends MetaTagHandler {
             handler.apply(ctx, parent);
         }
     }
+
+    @Override
+    protected MetaRuleset createMetaRuleset(Class type) {
+        return null;
+    }
+
 }

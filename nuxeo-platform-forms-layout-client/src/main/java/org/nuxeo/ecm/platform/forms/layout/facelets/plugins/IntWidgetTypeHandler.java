@@ -101,9 +101,11 @@ public class IntWidgetTypeHandler extends AbstractWidgetTypeHandler {
                     HtmlOutputText.COMPONENT_TYPE, null);
             if (BuiltinWidgetModes.PDF.equals(mode)) {
                 // add a surrounding p:html tag handler
-                return helper.getHtmlComponentHandler(widgetTagConfigId,
-                        new TagAttributesImpl(new TagAttribute[0]), output,
-                        UIHtmlText.class.getName(), null);
+                // FIXME: migrate to RichFaces
+                return output;
+                // return helper.getHtmlComponentHandler(widgetTagConfigId,
+                // new TagAttributesImpl(new TagAttribute[0]), output,
+                // UIHtmlText.class.getName(), null);
             } else {
                 return output;
             }

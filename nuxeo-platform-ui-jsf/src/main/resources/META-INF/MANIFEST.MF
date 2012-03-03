@@ -4,7 +4,10 @@ Manifest-Version: 1.0
 Bundle-Name: Nuxeo ECM Web Platform Fragment
 Created-By: 1.6.0_20 (Sun Microsystems Inc.)
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.nuxeo.ecm.platform.mimetype.api
 Bundle-Version: 0.0.0.SNAPSHOT
 Bundle-ManifestVersion: 2
+Nuxeo-Component: OSGI-INF/urlservice-framework.xml,
+ OSGI-INF/urlservice-contrib.xml,
+ OSGI-INF/htmleditor-framework.xml,
+ OSGI-INF/htmleditor-contrib.xml
 Bundle-SymbolicName: org.nuxeo.ecm.platform.ui.jsf;singleton:=true

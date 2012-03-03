@@ -36,8 +36,6 @@ import org.nuxeo.ecm.platform.forms.layout.facelets.LeafFaceletHandler;
 import org.nuxeo.ecm.platform.forms.layout.facelets.TagConfigFactory;
 import org.nuxeo.ecm.platform.forms.layout.facelets.ValueExpressionHelper;
 
-import com.sun.faces.facelets.tag.TagAttributesImpl;
-
 /**
  * Widget rendering a layout
  *
@@ -94,9 +92,11 @@ public class LayoutWidgetTypeHandler extends AbstractWidgetTypeHandler {
         FaceletHandler res = new LayoutTagHandler(layoutTagConfig);
         if (BuiltinWidgetModes.PDF.equals(widgetMode)) {
             // add a surrounding p:html tag handler
-            return helper.getHtmlComponentHandler(widgetTagConfigId,
-                    new TagAttributesImpl(new TagAttribute[0]), res,
-                    UIHtmlText.class.getName(), null);
+            // FIXME: migrate to RichFaces
+            return res;
+            // return helper.getHtmlComponentHandler(widgetTagConfigId,
+            // new TagAttributesImpl(new TagAttribute[0]), res,
+            // UIHtmlText.class.getName(), null);
         } else {
             return res;
         }

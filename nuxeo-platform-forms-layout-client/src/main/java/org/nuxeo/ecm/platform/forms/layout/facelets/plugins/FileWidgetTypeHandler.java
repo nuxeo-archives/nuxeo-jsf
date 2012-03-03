@@ -34,8 +34,8 @@ import org.nuxeo.ecm.platform.forms.layout.api.exceptions.WidgetException;
 import org.nuxeo.ecm.platform.forms.layout.facelets.FaceletHandlerHelper;
 import org.nuxeo.ecm.platform.forms.layout.facelets.LeafFaceletHandler;
 import org.nuxeo.ecm.platform.forms.layout.facelets.ValueExpressionHelper;
-
-import com.sun.faces.facelets.tag.TagAttributesImpl;
+import org.nuxeo.ecm.platform.ui.web.component.file.UIInputFile;
+import org.nuxeo.ecm.platform.ui.web.component.file.UIOutputFile;
 
 /**
  * File widget.
@@ -90,9 +90,11 @@ public class FileWidgetTypeHandler extends AbstractWidgetTypeHandler {
                     UIOutputFile.COMPONENT_TYPE, null);
             if (BuiltinWidgetModes.PDF.equals(mode)) {
                 // add a surrounding p:html tag handler
-                return helper.getHtmlComponentHandler(widgetTagConfigId,
-                        new TagAttributesImpl(new TagAttribute[0]), output,
-                        UIHtmlText.class.getName(), null);
+                // FIXME: migrate to RichFaces
+                return output;
+                // return helper.getHtmlComponentHandler(widgetTagConfigId,
+                // new TagAttributesImpl(new TagAttribute[0]), output,
+                // UIHtmlText.class.getName(), null);
             } else {
                 return output;
             }

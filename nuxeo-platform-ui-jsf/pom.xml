@@ -15,28 +15,32 @@
   </description>
 
   <dependencies>
-    <dependency>
+
+    <!--
+      <dependency>
       <groupId>org.osgi</groupId>
       <artifactId>osgi-core</artifactId>
-    </dependency>
+      </dependency>
+    -->
     <dependency>
       <groupId>org.nuxeo.ecm.core</groupId>
       <artifactId>nuxeo-core-api</artifactId>
     </dependency>
-    <dependency>
+    <!--
+      <dependency>
       <groupId>org.nuxeo.ecm.core</groupId>
       <artifactId>nuxeo-core-io</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.core</groupId>
       <artifactId>nuxeo-core-query</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.core</groupId>
       <artifactId>nuxeo-core-schema</artifactId>
-    </dependency>
+      </dependency>
+    -->
 
-    
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-ui-api</artifactId>
@@ -49,39 +53,49 @@
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-mimetype-api</artifactId>
     </dependency>
-    <dependency>
+    <!--
+      <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-api</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-actions-core</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-types-api</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-url-api</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-filemanager-api</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-usermanager-api</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-search-api</artifactId>
+      </dependency>
+    -->
+    <dependency>
+      <groupId>org.nuxeo.ecm.platform</groupId>
+      <artifactId>nuxeo-platform-web-common</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>de.odysseus.juel</groupId>
+      <artifactId>juel-api</artifactId>
+    </dependency>
     <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>jsf-api</artifactId>
@@ -99,18 +113,20 @@
       <artifactId>richfaces-components-ui</artifactId>
     </dependency>
 
-    <dependency>
+    <!--
+      <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
-    </dependency>
+      </dependency>
+    -->
 
     <dependency>
       <groupId>commons-lang</groupId>
@@ -122,21 +138,23 @@
     </dependency>
 
     <!-- scope test -->
-    <dependency>
+    <!--
+      <dependency>
       <groupId>org.nuxeo.runtime</groupId>
       <artifactId>nuxeo-runtime-osgi</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-ui-web-test</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.nuxeo.ecm.core</groupId>
       <artifactId>nuxeo-core-storage-sql-test</artifactId>
       <scope>test</scope>
-    </dependency>
+      </dependency>
+    -->
 
   </dependencies>
 

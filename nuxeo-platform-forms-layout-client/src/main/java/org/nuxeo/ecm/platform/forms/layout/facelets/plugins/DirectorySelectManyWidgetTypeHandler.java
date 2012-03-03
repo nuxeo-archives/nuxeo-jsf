@@ -44,6 +44,8 @@ import org.nuxeo.ecm.platform.forms.layout.facelets.FaceletHandlerHelper;
 import org.nuxeo.ecm.platform.forms.layout.facelets.LeafFaceletHandler;
 import org.nuxeo.ecm.platform.forms.layout.facelets.RenderVariables;
 import org.nuxeo.ecm.platform.forms.layout.facelets.ValueExpressionHelper;
+import org.nuxeo.ecm.platform.ui.web.directory.DirectoryEntryOutputComponent;
+import org.nuxeo.ecm.platform.ui.web.directory.SelectManyListboxComponent;
 
 import com.sun.faces.facelets.tag.TagAttributesImpl;
 
@@ -146,9 +148,11 @@ public class DirectorySelectManyWidgetTypeHandler extends
 
             if (BuiltinWidgetModes.PDF.equals(mode)) {
                 // add a surrounding p:html tag handler
-                return helper.getHtmlComponentHandler(widgetTagConfigId,
-                        new TagAttributesImpl(new TagAttribute[0]), table,
-                        UIHtmlText.class.getName(), null);
+                // FIXME: migrate to RichFaces
+                return table;
+                // return helper.getHtmlComponentHandler(widgetTagConfigId,
+                // new TagAttributesImpl(new TagAttribute[0]), table,
+                // UIHtmlText.class.getName(), null);
             } else {
                 return table;
             }
