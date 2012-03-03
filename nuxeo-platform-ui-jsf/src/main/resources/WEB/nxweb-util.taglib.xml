@@ -352,7 +352,7 @@
         org.nuxeo.ecm.platform.ui.web.component.file.UIInputFile
       </component-type>
       <handler-class>
-        com.sun.facelets.tag.jsf.html.HtmlComponentHandler
+        com.sun.faces.facelets.tag.jsf.html.HtmlComponentHandler
       </handler-class>
     </component>
   </tag>
@@ -376,7 +376,7 @@
         org.nuxeo.ecm.platform.ui.web.component.file.UIOutputFile
       </component-type>
       <handler-class>
-        com.sun.facelets.tag.jsf.html.HtmlComponentHandler
+        com.sun.faces.facelets.tag.jsf.html.HtmlComponentHandler
       </handler-class>
     </component>
   </tag>
@@ -387,7 +387,7 @@
         org.nuxeo.ecm.platform.ui.web.component.list.UIEditableList
       </component-type>
       <handler-class>
-        com.sun.facelets.tag.jsf.html.HtmlComponentHandler
+        com.sun.faces.facelets.tag.jsf.html.HtmlComponentHandler
       </handler-class>
     </component>
   </tag>

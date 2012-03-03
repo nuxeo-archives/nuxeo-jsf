@@ -25,9 +25,6 @@
       <li> directoryEntries(String, String[]): gets the list of
            document models representing entries for given directory
            name and entry ids.</li>
-      <li> getLabelFromId(String, String): gets the Label of a vocabulary
-           entry for the given id and vocabulary. Deprecated, use
-           directoryEntry(String, String) which is more generic.</li>
     </ul>
     ]]>
 
@@ -110,41 +107,6 @@
   var="item" itemValue="#{item.id}" itemLabel="#{item.vocabulary.label}" />
       ]]>
     </example>
-  </tag>
-  <tag>
-    <name>suggestBox</name>
-    <tag-class>None</tag-class>
-    <attribute>
-      <name>id</name>
-      <required>true</required>
-      <rtexprvalue>false</rtexprvalue>
-      <description>
-        The tag id. Have to be Unique. It uses tomahawk forceid so it won't be
-        prefixed with its parent id.
-      </description>
-    </attribute>
-    <attribute>
-      <name>directory</name>
-      <required>true</required>
-      <rtexprvalue>false</rtexprvalue>
-      <description>
-        The name of the directory you want to associate with the suggestBox.
-      </description>
-    </attribute>
-    <attribute>
-      <name>value</name>
-      <required>true</required>
-      <rtexprvalue>false</rtexprvalue>
-      <description>The value binding.</description>
-    </attribute>
-    <attribute>
-      <name>displayIdAndLabel</name>
-      <required>false</required>
-      <rtexprvalue>false</rtexprvalue>
-      <description>
-        Boolean, if true, shows id and Label in the suggestBox.
-      </description>
-    </attribute>
   </tag>
 
   <tag>

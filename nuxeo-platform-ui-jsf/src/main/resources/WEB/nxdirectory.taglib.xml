@@ -119,29 +119,4 @@
     </component>
   </tag>
 
-  <!--  Suggest Box -->
-
-  <function>
-    <function-name>getLabelFromId</function-name>
-    <function-class>
-      org.nuxeo.ecm.platform.ui.web.tag.fn.DocumentModelFunctions
-    </function-class>
-    <function-signature>
-      java.lang.String getLabelFromId(java.lang.String, java.lang.String)
-    </function-signature>
-  </function>
-  <function>
-    <function-name>getSuggestedValues</function-name>
-    <function-class>
-      org.nuxeo.ecm.platform.ui.web.directory.SuggestBoxBean
-    </function-class>
-    <function-signature>
-      java.lang.String getSuggestedValues(java.lang.String, java.lang.String)
-    </function-signature>
-  </function>
-  <tag>
-    <tag-name>suggestBox</tag-name>
-    <source>util/suggestBox.xhtml</source>
-  </tag>
-
 </facelet-taglib>

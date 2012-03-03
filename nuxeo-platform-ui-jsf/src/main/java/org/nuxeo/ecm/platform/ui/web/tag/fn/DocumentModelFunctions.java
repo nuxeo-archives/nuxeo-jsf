@@ -57,14 +57,11 @@ import org.nuxeo.ecm.core.schema.types.ListType;
 import org.nuxeo.ecm.core.schema.types.Schema;
 import org.nuxeo.ecm.core.schema.types.Type;
 import org.nuxeo.ecm.core.utils.DocumentModelUtils;
-import org.nuxeo.ecm.directory.DirectoryException;
-import org.nuxeo.ecm.directory.Session;
 import org.nuxeo.ecm.directory.api.DirectoryService;
 import org.nuxeo.ecm.platform.mimetype.interfaces.MimetypeEntry;
 import org.nuxeo.ecm.platform.mimetype.interfaces.MimetypeRegistry;
 import org.nuxeo.ecm.platform.types.TypeManager;
 import org.nuxeo.ecm.platform.types.adapter.TypeInfo;
-import org.nuxeo.ecm.platform.ui.web.directory.DirectoryFunctions;
 import org.nuxeo.ecm.platform.ui.web.directory.DirectoryHelper;
 import org.nuxeo.ecm.platform.ui.web.rest.api.URLPolicyService;
 import org.nuxeo.ecm.platform.ui.web.util.BaseURL;
@@ -943,38 +940,6 @@ public final class DocumentModelFunctions implements LiveEditConstants {
             }
         }
         return null;
-    }
-
-    /**
-     * Returns the label for given directory and id.
-     *
-     * @param directoryName the directory name
-     * @param id the label id
-     * @return the label.
-     * @throws DirectoryException
-     * @deprecated use
-     *             {@link DirectoryFunctions#getDirectoryEntry(String, String)}
-     */
-    @Deprecated
-    public static String getLabelFromId(String directoryName, String id)
-            throws DirectoryException {
-        if (id == null) {
-            return "";
-        }
-        Session directory = null;
-        try {
-            directory = getDirectoryService().open(directoryName);
-            // XXX hack, directory entries have only one datamodel
-            DocumentModel documentModel = directory.getEntry(id);
-            String schemaName = documentModel.getSchemas()[0];
-            return (String) documentModel.getProperty(schemaName, "label");
-        } catch (Exception e) {
-            return "";
-        } finally {
-            if (directory != null) {
-                directory.close();
-            }
-        }
     }
 
     public static String getPropertyPath(String listPropertyName, int index,
