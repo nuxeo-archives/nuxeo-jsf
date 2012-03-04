@@ -109,7 +109,7 @@
     </context-param>
 
     <context-param>
-      <param-name>facelets.LIBRARIES</param-name>
+      <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
       <param-value>
         /WEB-INF/nxdirectory.taglib.xml;
         /WEB-INF/nxweb-html.taglib.xml;
@@ -137,23 +137,14 @@
       Default: 2 seconds.
     -->
     <context-param>
-      <param-name>facelets.REFRESH_PERIOD</param-name>
+      <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
       <param-value>2</param-value>
     </context-param>
 
-    <!-- TODO: migrate to JSF2 -->
-    <!--
-      <context-param>
+    <context-param>
       <param-name>com.sun.faces.responseBufferSize</param-name>
       <param-value>500000</param-value>
-      </context-param>
-    -->
-
-    <context-param>
-      <param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
-      <param-value>500000</param-value>
     </context-param>
-
 
     <!-- TODO: re-enable? -->
     <!--
@@ -220,10 +211,7 @@
       </navigation-handler>
     -->
 
-    <!-- TODO: migrate to CDI/JSF2 -->
-    <!--
-      <el-resolver>org.nuxeo.ecm.platform.el.DocumentModelResolver</el-resolver>
-    -->
+    <el-resolver>org.nuxeo.ecm.platform.el.DocumentModelResolver</el-resolver>
 
   </extension>
 
