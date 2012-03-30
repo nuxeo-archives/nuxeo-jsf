@@ -1,6 +1,6 @@
 <body xmlns:f="http://java.sun.com/jsf/core"
       xmlns:nxthemes="http://nuxeo.org/nxthemes">
-  <f:view>
+  <f:view id="page-frame">
     <nxthemes:accesskeys />
     [nxthemes markup]
   </f:view>
