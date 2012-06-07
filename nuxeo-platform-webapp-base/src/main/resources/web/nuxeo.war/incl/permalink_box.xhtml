@@ -20,6 +20,13 @@
     <h:inputText class="permalinkFocus"
       value="#{nxd:complexDocumentUrl('id', currentDocument, null, null, true)}"
       readonly="true" onclick="javascript:this.focus();this.select();" />
+
+<!-- NXP-9444: test form inside form -->
+<h:form id="truc">
+<h:inputText value="#{currentDocument.dc.title}" />
+<h:commandButton value="submit" />
+</h:form>
+
   </div>
 
 </div>

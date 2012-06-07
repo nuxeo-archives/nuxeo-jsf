@@ -559,6 +559,14 @@
 
     <!-- end of override of buggy seam libraries -->
 
+    <!-- override standard form component -->
+    <component>
+      <component-type>javax.faces.HtmlForm</component-type>
+      <component-class>
+        org.nuxeo.ecm.platform.ui.web.component.UINXForm
+      </component-class>
+    </component>
+
   </extension>
 
   <extension target="faces-config#RENDERER">
@@ -648,6 +656,14 @@
       <renderer-class>
         com.sun.faces.renderkit.html_basic.HiddenRenderer
       </renderer-class>
+    </renderer>
+
+    <!-- override renderer for forms to set it back to the original renderer instead
+      of tomahawk -->
+    <renderer>
+      <component-family>javax.faces.Form</component-family>
+      <renderer-type>javax.faces.Form</renderer-type>
+      <renderer-class>org.nuxeo.ecm.platform.ui.web.renderer.NXFormRenderer</renderer-class>
     </renderer>
 
   </extension>
