@@ -185,6 +185,8 @@ public final class EventNames {
      */
     public static final String DIRECTORY_CHANGED = "directoryChanged";
 
+    public static final String USER_SESSION_STARTED = "org.nuxeo.ecm.web.userSessionStarted";
+
     // Constant utility class.
     private EventNames() {
     }
