@@ -19,6 +19,9 @@
 
 package org.nuxeo.ecm.webapp.action;
 
+import static org.jboss.seam.ScopeType.CONVERSATION;
+import static org.jboss.seam.ScopeType.EVENT;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,9 +44,7 @@ import org.nuxeo.ecm.platform.types.Type;
 import org.nuxeo.ecm.platform.types.TypeManager;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
-
-import static org.jboss.seam.ScopeType.CONVERSATION;
-import static org.jboss.seam.ScopeType.EVENT;
+import org.nuxeo.ecm.webapp.seam.NuxeoSeamHotReloader;
 
 /**
  * Document type service for document type creation.
@@ -65,7 +66,12 @@ public class TypesTool implements Serializable {
     @In(create = true)
     protected transient TypeManager typeManager;
 
+    @In(create = true)
+    protected NuxeoSeamHotReloader seamReload;
+
     protected Map<String, List<List<Type>>> typesMap;
+
+    protected Long typesMapTimestamp;
 
     protected Type selectedType;
 
@@ -79,6 +85,7 @@ public class TypesTool implements Serializable {
     @BypassInterceptors
     public void resetTypesList() {
         typesMap = null;
+        typesMapTimestamp = null;
     }
 
     /**
@@ -98,6 +105,7 @@ public class TypesTool implements Serializable {
             // set an empty list
             typesMap = new HashMap<String, List<List<Type>>>();
         }
+        typesMapTimestamp = typeManager.getLastModified();
     }
 
     public Map<String, List<List<Type>>> getOrganizedTypeMapForDocumentType(
@@ -133,8 +141,8 @@ public class TypesTool implements Serializable {
 
     /**
      * Split each @{code List} of {@code Type} in one or more new {@code List},
-     * with maximum 4 {@code Type}s in each new {@code List} and returns the new
-     * computed {@code Map}.
+     * with maximum 4 {@code Type}s in each new {@code List} and returns the
+     * new computed {@code Map}.
      */
     protected Map<String, List<List<Type>>> organizeType(
             Map<String, List<Type>> types) {
@@ -186,7 +194,9 @@ public class TypesTool implements Serializable {
     @Factory(value = "typesMap", scope = EVENT)
     public Map<String, List<List<Type>>> getTypesList() {
         // XXX : should cache per currentDocument type
-        if (typesMap == null) {
+        if (typesMap == null
+                || (seamReload.isDevModeSet() && seamReload.shouldResetCache(
+                        typeManager, typesMapTimestamp))) {
             // cache the list of allowed subtypes
             populateTypesList();
         }
