@@ -4,8 +4,11 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:nxd="http://nuxeo.org/nxweb/document">
 
-  <nxd:restDocumentLink document="#{fieldOrValue}" tab="#{action.id}">
-    <ui:include src="/incl/action/action_icon_label_template.xhtml" />
+  <nxd:restDocumentLink document="#{fieldOrValue}" tab="#{action.id}"
+    accesskey="#{action.accessKey}">
+    <ui:include src="/incl/action/action_icon_label_template.xhtml">
+      <ui:param name="hideIcon" value="true" />
+    </ui:include>
     <ui:insert name="inside_action" />
   </nxd:restDocumentLink>
 
