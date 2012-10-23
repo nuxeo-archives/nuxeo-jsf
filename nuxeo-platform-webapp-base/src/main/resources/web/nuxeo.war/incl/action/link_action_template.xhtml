@@ -6,7 +6,7 @@
   xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html">
-
+blah
 <c:if test="#{useButton}">
 
   <c:if test="#{not useAjaxForm}">
@@ -15,7 +15,8 @@
       onclick="#{action.confirm};#{action.properties.onclick};"
       immediate="#{action.immediate}"
       value="#{messages[action.label]}"
-      styleClass="button #{actionStyleClass} #{action.properties.styleClass}">
+      styleClass="button #{actionStyleClass} #{action.properties.styleClass}"
+      accessKey="#{action.accessKey}">
       <ui:include src="/incl/action/action_icon_label_template.xhtml">
         <ui:param name="hideLabel" value="true" />
       </ui:include>
@@ -29,7 +30,8 @@
       onclick="#{action.confirm};#{action.properties.onclick};"
       immediate="#{action.immediate}"
       value="#{messages[action.label]}"
-      styleClass="button #{actionStyleClass} #{action.properties.styleClass}">
+      styleClass="button #{actionStyleClass} #{action.properties.styleClass}"
+      accessKey="#{action.accessKey}">
       <ui:include src="/incl/action/action_icon_label_template.xhtml">
         <ui:param name="hideLabel" value="true" />
       </ui:include>
@@ -50,7 +52,8 @@
       onclick="#{action.confirm};#{action.properties.onclick};"
       immediate="#{action.immediate}"
       target="#{action.properties.target}"
-      styleClass="actionLink #{actionStyleClass} #{action.properties.styleClass}">
+      styleClass="actionLink #{actionStyleClass} #{action.properties.styleClass}"
+      accessKey="#{action.accessKey}">
       <ui:include src="/incl/action/action_icon_label_template.xhtml" />
       <ui:insert name="inside_action" />
     </nxh:commandLink>
@@ -61,7 +64,8 @@
       id="#{idPrefix}#{action.id}"
       onclick="#{action.confirm};#{action.properties.onclick};"
       immediate="#{action.immediate}"
-      styleClass="actionLink #{actionStyleClass} #{action.properties.styleClass}">
+      styleClass="actionLink #{actionStyleClass} #{action.properties.styleClass}"
+      accessKey="#{action.accessKey}">
       <ui:include src="/incl/action/action_icon_label_template.xhtml" />
       <ui:insert name="before_action_trigger" />
       <nxu:actionListenerMethod
