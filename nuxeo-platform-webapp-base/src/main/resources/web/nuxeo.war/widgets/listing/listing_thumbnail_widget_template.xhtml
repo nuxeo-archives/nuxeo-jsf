@@ -6,7 +6,7 @@
   xmlns:nxl="http://nuxeo.org/nxforms/layout"
   xmlns:h="http://java.sun.com/jsf/html">
   <nxu:set var="thumbnailUrl"
-    value="#{nxd:fileUrl('downloadThumbnail', currentDocument, 'blobholder:0', currentDocumentAsBlobHolder.blob.filename)}">
+    value="#{nxd:fileUrl('downloadThumbnail', field_0, 'blobholder:0', currentDocumentAsBlobHolder.blob.filename)}">
     <c:if test="#{nxl:isLikeViewMode(widget.mode)}">
       <nxh:graphicImage value="#{thumbnailUrl}"
         rendered="#{not empty thumbnailUrl}" />

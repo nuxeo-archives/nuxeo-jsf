@@ -830,6 +830,9 @@
         <categories>
           <category>listing</category>
         </categories>
+        <defaultConfiguration>
+          <field>data</field>
+        </defaultConfiguration>
       </configuration>
       <handler-class>
         org.nuxeo.ecm.platform.forms.layout.facelets.plugins.TemplateWidgetTypeHandler
@@ -1161,6 +1164,9 @@
       <labels>
         <label mode="any"></label>
       </labels>
+      <fields>
+        <field>data</field>
+      </fields>
     </widget>
   </extension>
 
