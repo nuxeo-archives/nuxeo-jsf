@@ -1722,7 +1722,7 @@
           <widget>listing_selection_box_with_current_document</widget>
         </column>
         <column alwaysSelected="true">
-          <widget>listing_big_icon_type_link</widget>
+          <widget>listing_thumbnail</widget>
         </column>
         <column alwaysSelected="true">
           <widget>listing_title_link</widget>
