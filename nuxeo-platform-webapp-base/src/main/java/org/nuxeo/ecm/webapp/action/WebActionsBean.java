@@ -19,7 +19,6 @@
 
 package org.nuxeo.ecm.webapp.action;
 
-import static org.jboss.seam.ScopeType.CONVERSATION;
 import static org.jboss.seam.ScopeType.EVENT;
 
 import java.io.Serializable;
@@ -65,7 +64,7 @@ import org.nuxeo.runtime.api.Framework;
  * @author <a href="mailto:cbaican@nuxeo.com">Catalin Baican</a>
  */
 @Name("webActions")
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.CONVERSATION)
 @Install(precedence = Install.FRAMEWORK)
 public class WebActionsBean implements WebActions, Serializable {
 

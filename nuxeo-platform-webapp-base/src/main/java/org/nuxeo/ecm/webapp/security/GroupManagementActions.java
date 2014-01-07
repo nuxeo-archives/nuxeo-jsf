@@ -51,7 +51,7 @@ import org.nuxeo.ecm.platform.usermanager.exceptions.GroupAlreadyExistsException
  * @since 5.4.2
  */
 @Name("groupManagementActions")
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 @Install(precedence = FRAMEWORK)
 public class GroupManagementActions extends AbstractUserGroupManagement
         implements Serializable {

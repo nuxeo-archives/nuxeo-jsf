@@ -49,7 +49,7 @@ import org.nuxeo.runtime.api.Framework;
  * @since 5.5
  * @author <a href="mailto:qlamerand@nuxeo.com">Quentin Lamerand</a>
  */
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 @Name("vocabularyTreeActions")
 @Install(precedence = FRAMEWORK)
 public class VocabularyTreeActions implements Serializable {

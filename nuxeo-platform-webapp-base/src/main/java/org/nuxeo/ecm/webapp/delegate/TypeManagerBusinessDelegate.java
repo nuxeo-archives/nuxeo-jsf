@@ -40,7 +40,7 @@ import org.nuxeo.runtime.api.Framework;
  *
  */
 @Name("typeManager")
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 public class TypeManagerBusinessDelegate implements Serializable {
 
     private static final long serialVersionUID = -5326113474071108997L;

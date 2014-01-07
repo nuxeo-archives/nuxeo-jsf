@@ -38,7 +38,7 @@ import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
  * @author <a href="mailto:troger@nuxeo.com">Thomas Roger</a>
  */
 @Name("localConfigurationActions")
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 @Install(precedence = Install.FRAMEWORK)
 public class LocalConfigurationActions implements Serializable {
 

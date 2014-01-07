@@ -58,7 +58,7 @@ import org.richfaces.event.NodeExpandedEvent;
  *
  * @author <a href="mailto:ogrisel@nuxeo.com">Olivier Grisel</a>
  */
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 @Name("directoryTreeManager")
 public class DirectoryTreeManagerBean implements DirectoryTreeManager {
 

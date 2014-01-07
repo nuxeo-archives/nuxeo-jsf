@@ -58,7 +58,7 @@ import org.nuxeo.runtime.api.Framework;
  * @since 5.4.2
  */
 @Name("userManagementActions")
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 @Install(precedence = FRAMEWORK)
 public class UserManagementActions extends AbstractUserGroupManagement
         implements Serializable {

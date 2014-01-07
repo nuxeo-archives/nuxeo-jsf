@@ -34,7 +34,7 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
  * @since 5.4
  */
 @Name("contentViewObserverActions")
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 public class ContentViewObserverActions implements Serializable {
 
     private static final long serialVersionUID = 1L;

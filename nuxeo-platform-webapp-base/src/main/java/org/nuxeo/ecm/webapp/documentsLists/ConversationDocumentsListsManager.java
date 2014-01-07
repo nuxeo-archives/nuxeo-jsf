@@ -33,7 +33,7 @@ import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
 
 @Name("conversationDocumentsListsManager")
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 public class ConversationDocumentsListsManager extends
         BaseDocumentsListsManager implements Serializable {
 

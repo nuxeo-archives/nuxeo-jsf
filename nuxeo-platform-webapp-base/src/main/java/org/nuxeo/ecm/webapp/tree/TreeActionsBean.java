@@ -61,7 +61,7 @@ import org.richfaces.event.NodeExpandedEvent;
  * @author Razvan Caraghin
  * @author Anahide Tchertchian
  */
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 @Name("treeActions")
 @Install(precedence = FRAMEWORK)
 public class TreeActionsBean implements TreeActions, Serializable {

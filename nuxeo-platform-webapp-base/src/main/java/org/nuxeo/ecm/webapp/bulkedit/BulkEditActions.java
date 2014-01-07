@@ -50,7 +50,7 @@ import org.nuxeo.runtime.api.Framework;
  * @author <a href="mailto:troger@nuxeo.com">Thomas Roger</a>
  */
 @Name("bulkEditActions")
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 @Install(precedence = Install.FRAMEWORK)
 public class BulkEditActions implements Serializable {
 

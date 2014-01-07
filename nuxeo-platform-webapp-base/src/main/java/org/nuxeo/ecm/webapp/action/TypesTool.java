@@ -53,7 +53,7 @@ import org.nuxeo.ecm.webapp.seam.NuxeoSeamHotReloader;
  * @author <a href="mailto:at@nuxeo.com">Anahide Tchertchian</a>
  */
 @Name("typesTool")
-@Scope(CONVERSATION)
+@Scope(org.jboss.seam.ScopeType.EVENT)
 @Install(precedence = Install.FRAMEWORK)
 public class TypesTool implements Serializable {
 
