@@ -19,7 +19,7 @@
 
 package org.nuxeo.ecm.platform.ui.web.rest;
 
-import static org.jboss.seam.ScopeType.EVENT;
+import static org.jboss.seam.ScopeType.PAGE;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -66,7 +66,7 @@ import org.nuxeo.ecm.platform.util.RepositoryLocation;
  * @author Florent Guillaume
  */
 @Name("restHelper")
-@Scope(EVENT)
+@Scope(PAGE)
 public class RestHelper implements Serializable {
 
     private static final long serialVersionUID = 1L;
