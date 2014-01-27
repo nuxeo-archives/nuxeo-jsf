@@ -33,6 +33,9 @@
         <nxu:valueHolder id="#{widget.id}_select2" value="#{field_0}"
           immediate="true" ajaxSingle="true"
           required="#{widgetProperty_required}" var="currentValue">
+          <c:if test ="#{widgetProperty_validator != null}">
+            <f:validator validatorId="widgetProperty_validator"/>
+          </c:if>
           <h:inputHidden readonly="true" id="#{widget.id}_select2_init"
             value="#{select2Actions.resolveSingleDirectoryEntry(currentValue, widgetProperty_directoryName, widget.translated, widgetProperty_keySeparator, widgetProperty_dbl10n, widgetProperty_labelFieldName)}" />
         </nxu:valueHolder>

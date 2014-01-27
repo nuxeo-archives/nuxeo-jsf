@@ -84,6 +84,9 @@
           immediate="true" ajaxSingle="true"
           required="#{widgetProperty_required}" var="currentValue">
           <f:converter converterId="select2Converter"></f:converter>
+          <c:if test ="#{widgetProperty_validator != null}">
+            <f:validator validatorId="widgetProperty_validator"/>
+          </c:if>
           <h:inputHidden readonly="true" id="#{widget.id}_select2_init"
             value="#{select2Actions.resolveMultipleUserReference(currentValue, widgetProperty_prefixed, widgetProperty_firstLabelField, widgetProperty_secondLabelField, widgetProperty_thirdLabelField,  widgetProperty_hideFirstLabel,  widgetProperty_hideSecondLabel, widgetProperty_hideThirdLabel, widgetProperty_displayEmailInSuggestion, widgetProperty_hideIcon)}" />
         </nxu:valueHolder>

@@ -1066,6 +1066,9 @@
                 <row>
                   <widget category="widgetTypeConf">select2_suggestionFormatter</widget>
                 </row>
+                <row>
+                  <widget category="widgetTypeConf">validator</widget>
+                </row>
               </rows>
             </layout>
           </layouts>
@@ -1196,6 +1199,9 @@
                 </row>
                 <row>
                   <widget category="widgetTypeConf">select2_suggestionFormatter</widget>
+                </row>
+                <row>
+                  <widget category="widgetTypeConf">validator</widget>
                 </row>
               </rows>
             </layout>
@@ -1332,6 +1338,9 @@
                 </row>
                 <row>
                   <widget category="widgetTypeConf">select2_directorySuggestion_addNewEntryFilter</widget>
+                </row>
+                <row>
+                  <widget category="widgetTypeConf">validator</widget>
                 </row>
               </rows>
             </layout>
@@ -1471,6 +1480,9 @@
                 </row>
                 <row>
                   <widget category="widgetTypeConf">select2_directorySuggestion_addNewEntryFilter</widget>
+                </row>
+                <row>
+                  <widget category="widgetTypeConf">validator</widget>
                 </row>
               </rows>
             </layout>
@@ -1654,6 +1666,9 @@
                   <widget category="widgetTypeConf">select2_suggestionFormatter
                   </widget>
                 </row>
+                <row>
+                  <widget category="widgetTypeConf">validator</widget>
+                </row>
               </rows>
             </layout>
           </layouts>
@@ -1757,6 +1772,9 @@
                 <row>
                   <widget category="widgetTypeConf">select2_suggestionFormatter
                   </widget>
+                </row>
+                <row>
+                  <widget category="widgetTypeConf">validator</widget>
                 </row>
               </rows>
             </layout>
