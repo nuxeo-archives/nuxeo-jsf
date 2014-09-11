@@ -480,7 +480,8 @@ public class WebActionsBean implements WebActions, Serializable {
 
     @Factory(value = "useAjaxTabs", scope = ScopeType.SESSION)
     public boolean useAjaxTabs() {
-        if (Framework.isBooleanPropertyTrue(AJAX_TAB_PROPERTY)) {
+        if (Framework.getProperty(AJAX_TAB_PROPERTY) == null
+                || !Framework.isBooleanPropertyFalse(AJAX_TAB_PROPERTY)) {
             return canUseAjaxTabs();
         }
         return false;
