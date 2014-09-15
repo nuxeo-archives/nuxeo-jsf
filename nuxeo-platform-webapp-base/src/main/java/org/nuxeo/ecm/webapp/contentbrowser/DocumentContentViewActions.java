@@ -307,6 +307,6 @@ public class DocumentContentViewActions implements Serializable {
         ActionContext ctx = actionContextProvider.createActionContext();
         ctx.putLocalVariable("contentView", contentView);
         ctx.putLocalVariable("selectedDocuments", selectedEntries);
-        return webActions.getActionsList(category, ctx, false);
+        return webActions.getActionsList(category, ctx, true);
     }
 }
