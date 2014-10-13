@@ -25,8 +25,8 @@
         <properties>
           <defaultValues mode="edit">
             <property name="var">item</property>
-            <property name="itemLabel">#{item.key}</property>
             <property name="itemValue">#{item.key}</property>
+            <property name="resolveItemLabelTwice">true</property>
             <property name="itemCount">(#{item.docCount})</property>
             <property name="layout">pageDirection</property>
             <property name="notDisplayDefaultOption">true</property>
@@ -79,8 +79,8 @@
         <properties>
           <defaultValues mode="edit">
             <property name="var">item</property>
-            <property name="itemLabel">#{item.key}</property>
             <property name="itemValue">#{item.key}</property>
+            <property name="resolveItemLabelTwice">true</property>
             <property name="itemCount">(#{item.docCount})</property>
             <property name="notDisplayDefaultOption">true</property>
             <property name="width">100%</property>
@@ -476,7 +476,6 @@
             <property name="itemCount">(#{item.docCount})</property>
             <property name="layout">pageDirection</property>
             <property name="notDisplayDefaultOption">true</property>
-            <property name="itemLabel">#{item.key}</property>
             <property name="moreLessLimit">6</property>
             <property name="emptyChoiceMessage">label.aggregate.emptyChoice</property>
             <property name="order">key desc</property>
@@ -534,7 +533,6 @@
             <property name="itemCount">(#{item.docCount})</property>
             <property name="layout">pageDirection</property>
             <property name="notDisplayDefaultOption">true</property>
-            <property name="itemLabel">#{item.key}</property>
             <property name="width">100%</property>
             <property name="placeholder">#{messages['label.vocabulary.selectValue']}</property>
             <property name="order">key desc</property>
@@ -697,6 +695,7 @@
             <property name="notDisplayDefaultOption">true</property>
             <property name="var">item</property>
             <property name="itemValue">#{item.key}</property>
+            <property name="resolveItemLabelTwice">true</property>
             <property name="itemCount">(#{item.docCount})</property>
             <property name="moreLessLimit">6</property>
             <property name="emptyChoiceMessage">label.aggregate.emptyChoice</property>
@@ -754,6 +753,7 @@
             <property name="width">100%</property>
             <property name="var">item</property>
             <property name="itemValue">#{item.key}</property>
+            <property name="resolveItemLabelTwice">true</property>
             <property name="itemCount">(#{item.docCount})</property>
             <property name="placeholder">#{messages['label.vocabulary.selectValue']}</property>
           </defaultValues>
