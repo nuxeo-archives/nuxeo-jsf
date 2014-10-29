@@ -56,8 +56,7 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
 import org.nuxeo.runtime.api.Framework;
 
 /**
- * Component that handles actions retrieval as well as current tab(s)
- * selection.
+ * Component that handles actions retrieval as well as current tab(s) selection.
  *
  * @author Eugen Ionica
  * @author Anahide Tchertchian
@@ -72,6 +71,8 @@ public class WebActionsBean implements WebActions, Serializable {
     private static final long serialVersionUID = 1959221536502251848L;
 
     private static final Log log = LogFactory.getLog(WebActionsBean.class);
+
+    public static final String WORKSPACE_MAIN_TAB = "MAIN_TABS:documents";
 
     @In(create = true, required = false)
     protected transient ActionManager actionManager;
@@ -432,6 +433,17 @@ public class WebActionsBean implements WebActions, Serializable {
         // set current tab
         setCurrentTabId(currentTabActionId);
         return viewId;
+    }
+
+    // Workspace main tab
+
+    public void setWorkspaceMainTab(String tabs) {
+        setCurrentTabIds(StringUtils.isBlank(tabs) || tabs.equals(":") ? WORKSPACE_MAIN_TAB
+                : tabs);
+    }
+
+    public String getWorkspaceMainTab() {
+        return getCurrentTabIds();
     }
 
     // deprecated API
