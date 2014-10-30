@@ -15,6 +15,9 @@
 <nxu:set var="onclick"
   value="#{nxu:test(not empty action.properties.confirmMessage, actionConfirmMessageJs, '')}#{action.confirm};#{action.properties.onclick};"
   cache="true">
+<nxu:set var="mainTabIdValue"
+  value="MAIN_TABS:#{mainTabId}"
+  cache="true">
 <nxu:set var="tabIds"
   value="#{parentTabActionCategory}:#{action.id}"
   cache="true">
@@ -25,7 +28,7 @@
     repositoryName="#{nxu:test(empty action.properties.repositoryName, widgetProperty_repositoryName, action.properties.repositoryName)}"
     view="#{nxu:test(empty action.properties.view, widgetProperty_view, action.properties.view)}"
     pattern="#{nxu:test(empty action.properties.pattern, widgetProperty_pattern, action.properties.pattern)}"
-    tabs="#{tabIds}"
+    tabs="#{tabIds}#{nxu:test(empty mainTabId, '', nxu:concat(',', mainTabIdValue))}"
     addTabInfo="false"
     accesskey="#{action.accessKey}"
     id="#{widget.id}"
@@ -44,7 +47,7 @@
     repositoryName="#{nxu:test(empty action.properties.repositoryName, widgetProperty_repositoryName, action.properties.repositoryName)}"
     view="#{nxu:test(empty action.properties.view, widgetProperty_view, action.properties.view)}"
     pattern="#{nxu:test(empty action.properties.pattern, widgetProperty_pattern, action.properties.pattern)}"
-    tabs="#{tabIds}"
+    tabs="#{tabIds}#{nxu:test(empty mainTabId, '', nxu:concat(',', mainTabIdValue))}"
     addTabInfo="false"
     accesskey="#{action.accessKey}"
     id="#{widget.id}_restLink"
@@ -65,6 +68,7 @@
 
 </c:if>
 
+</nxu:set>
 </nxu:set>
 </nxu:set>
 
